@@ -4,18 +4,9 @@ import com.game.manager.GameElement;
 import com.game.manager.GameLoad;
 import com.game.manager.ModelManager;
 import com.game.model.ElementObj;
-import com.game.model.Enemy;
-import com.game.model.Play;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import sun.font.SunFontManager;
-import sun.management.VMOptionCompositeData;
 
-import javax.jws.WebParam;
-import javax.swing.*;
-import javax.xml.bind.Element;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * 游戏主线程
@@ -40,7 +31,6 @@ public class GameThread implements Runnable {
     @Override
     public void run() {
 
-        GameLoad.MapLoad(1);
         while (true) {
 //      游戏开始前 加载游戏资源或者场景资源
             gameLoad();
@@ -141,17 +131,20 @@ public class GameThread implements Runnable {
      * 游戏的加载
      */
     private void gameLoad() {
+        GameLoad.loadImage(3);
+        GameLoad.MapLoad(4);
+        GameLoad.loadPlay(1);
         //图片导入
-        ImageIcon icon = new ImageIcon("src/res/image/play1/WeChat Image_20200213234835.jpg");
-        ImageIcon enemyIcon = new ImageIcon("src/res/image/image/tank/bot/bot_up.png");
-        ElementObj enemyObj = new Enemy(0, 0, 50, 50, enemyIcon);
-        ElementObj elementObj = new Play(100, 100, 50, 50, icon);
-        for (int i = 0; i <10 ; i++) {
-            modelManager.addElement(new Enemy().createElement(""),GameElement.ENEMY);
-        }
-        modelManager.getElementsByKey(GameElement.PLAY);
-        modelManager.addElement(elementObj, GameElement.PLAY);
-        modelManager.addElement(enemyObj , GameElement.ENEMY);
+//        ImageIcon icon = new ImageIcon("src/res/image/play1/WeChat Image_20200213234835.jpg");
+//        ImageIcon enemyIcon = new ImageIcon("src/res/image/image/tank/bot/bot_up.png");
+//        ElementObj enemyObj = new Enemy(0, 0, 50, 50, enemyIcon);
+//        ElementObj elementObj = new Play(100, 100, 50, 50, icon);
+//        for (int i = 0; i <10 ; i++) {
+//            modelManager.addElement(new Enemy().createElement(""),GameElement.ENEMY);
+//        }
+//        modelManager.getElementsByKey(GameElement.PLAY);
+//        modelManager.addElement(elementObj, GameElement.PLAY);
+//        modelManager.addElement(enemyObj , GameElement.ENEMY);
     }
 }
 

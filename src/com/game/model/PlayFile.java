@@ -129,12 +129,12 @@ public class PlayFile extends ElementObj {
     @Override
     protected void updateImage(long gameTime) {
         super.updateImage(gameTime);
-        if (gameTime - time > 20) {
-            time = gameTime;
-            this.setW(getW()+5);
-            this.setH(getH()+5);
-
-        }
+//        if (gameTime - time > 20) {
+//            time = gameTime;
+//            this.setW(getW()+5);
+//            this.setH(getH()+5);
+//
+//        }
     }
 
     /**

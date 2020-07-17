@@ -64,7 +64,9 @@ public class Play extends ElementObj {
     public Play(int x, int y, int w, int h, ImageIcon icon) {
         super(x, y, w, h, icon);
         this.speed=1;
+    }
 
+    public Play(){
 
     }
 
@@ -151,13 +153,13 @@ public class Play extends ElementObj {
         if (this.left && this.getX() > 0) {
             this.setX(this.getX() - speed);
         }
-        if (this.right && this.getX() <500) {
+        if (this.right && this.getX() <770) {
             this.setX(this.getX() + speed);
         }
         if (this.up && this.getY() >0) {
             this.setY(this.getY() - speed);
         }
-        if (this.down && this.getY() < 500 ) {
+        if (this.down && this.getY() < 550 ) {
             this.setY(this.getY() + speed);
         }
     }
@@ -168,7 +170,7 @@ public class Play extends ElementObj {
      */
     @Override
     public void updateImage(long gameTime) {
-        this.setIcon(GameLoad.imageIconMap.get(direction));
+        this.setIcon(GameLoad.playIconMap.get(direction));
     }
 
 
@@ -213,5 +215,17 @@ public class Play extends ElementObj {
 
         }
         return "x:" + x + ",y:" + y + ",direction:" + Direction.getNameByInstance(this.direction);
+    }
+
+    public ElementObj createElement(String str){
+        String[] strs = str.split(",");
+        this.setX(new Integer(strs[0]));
+        this.setY(new Integer(strs[1]));
+        ImageIcon icon = GameLoad.playIconMap.get(Direction.getDirectionByname(strs[2]));
+        this.setW(icon.getIconWidth());
+        this.setH(icon.getIconHeight());
+        this.setIcon(icon);
+        this.speed = 1;
+        return  this;
     }
 }

@@ -9,7 +9,7 @@ public class Reflection {
     public static void main(String[] args) throws IllegalAccessException, InstantiationException, NoSuchFieldException {
         Class a = Father.class;
         try {
-            a= Class.forName("com.game.text.data.");
+            a= Class.forName("com.game.model.Play");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

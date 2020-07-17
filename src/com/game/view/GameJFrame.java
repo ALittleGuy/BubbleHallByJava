@@ -20,8 +20,8 @@ import java.awt.event.MouseMotionListener;
  * <p/>
  */
 public class GameJFrame extends JFrame {
-    private static int GameX = 900;
-    private static int GameY = 600;
+    private static int GameX = 770;
+    private static int GameY = 610;
 
     private JPanel jPanel = null;  //正在显示的面板
     private KeyListener keyListener = null; //键盘监听
