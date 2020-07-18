@@ -19,7 +19,6 @@ public abstract class ElementObj {
     private int h;
     private ImageIcon icon;
 
-
     /**
      * 生存状态:true代表存活,false代表死亡
      * 可用枚举值了来定义各种状态(生存\失望\隐身\无敌)
@@ -109,16 +108,12 @@ public abstract class ElementObj {
     /**
      * 需要移动的子类则实现该方法
      */
-
     /**
      * Gets x.
      *
      * @return the x
      */
-    public int getX() {
-        return x;
-    }
-
+    public int getX() { return x; }
     /**
      * Sets x.
      *
@@ -127,7 +122,6 @@ public abstract class ElementObj {
     public void setX(int x) {
         this.x = x;
     }
-
     /**
      * Gets y.
      *
@@ -136,7 +130,6 @@ public abstract class ElementObj {
     public int getY() {
         return y;
     }
-
     /**
      * Sets y.
      *
@@ -145,7 +138,6 @@ public abstract class ElementObj {
     public void setY(int y) {
         this.y = y;
     }
-
     /**
      * Gets w.
      *
@@ -154,7 +146,6 @@ public abstract class ElementObj {
     public int getW() {
         return w;
     }
-
     /**
      * Sets w.
      *
@@ -163,7 +154,6 @@ public abstract class ElementObj {
     public void setW(int w) {
         this.w = w;
     }
-
     /**
      * Gets h.
      *
@@ -172,7 +162,6 @@ public abstract class ElementObj {
     public int getH() {
         return h;
     }
-
     /**
      * Sets h.
      *
@@ -181,7 +170,6 @@ public abstract class ElementObj {
     public void setH(int h) {
         this.h = h;
     }
-
     /**
      * Gets icon.
      *
@@ -190,7 +178,6 @@ public abstract class ElementObj {
     public ImageIcon getIcon() {
         return icon;
     }
-
     /**
      * Sets icon.
      *

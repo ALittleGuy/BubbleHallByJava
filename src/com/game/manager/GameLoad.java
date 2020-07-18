@@ -38,47 +38,11 @@ public class GameLoad {
     }
 
     public static void loadMap(int mapId) {
-
-        //地板加载
-        String mapName = "map_config/floor.json";
-        ClassLoader classLoader = GameLoad.class.getClassLoader();
-        InputStream mapInputStream = classLoader.getResourceAsStream(mapName);
-        BufferedReader mapBufferedReader  = new BufferedReader(new InputStreamReader(mapInputStream, StandardCharsets.UTF_8));
-        if (mapInputStream == null) {
-            System.out.println("文件读取错误");
-        }
-        StringBuilder content = new StringBuilder("");
-        String line;
-        JSONArray jsonArray = null;
-        while (true) {
-            try {
-                if (!(null!=(line = mapBufferedReader.readLine()))) break;
-
-                content.append(line);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        System.out.println(content.toString());
-        jsonArray = JSON.parseArray(content.toString());
-
-        for (Object o : jsonArray) {
-            JSONObject jsonObject = (JSONObject) o;
-            int x = (int) jsonObject.get("x");
-            int y = (int) jsonObject.get("y");
-            ElementObj elementObj = new FloorObj().createElement(y+","+x);
-            System.out.println(x+"  "+y);
-            modelManager.addElement(elementObj , GameElement.MAP , x , y);
-        }
-        try {
-            if(mapBufferedReader!=null){
-            mapBufferedReader.close();}
-            if(mapInputStream!=null){
-            mapInputStream.close();}
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       loadFloor();
+       loadBoxs();
     }
+
+
     /**
      *加载图片
      */
@@ -154,5 +118,68 @@ public class GameLoad {
             System.out.println("error");
         }
         modelManager.addElement(play, GameElement.PLAY, 0, 0);
+    }
+
+
+    private static void loadFloor(){
+        //地板加载
+        String floorFile = "map_config/floor.json";
+        String boxFile   = "map_config/box.json";
+        loadByFileName(floorFile  , new FloorObj());
+
+
+    }
+
+
+
+    private static void loadBoxs() {
+    }
+
+    private static void loadByFileName(String fileName , ElementObj element){
+        ClassLoader classLoader = GameLoad.class.getClassLoader();
+        InputStream mapInputStream = classLoader.getResourceAsStream(fileName);
+        BufferedReader mapBufferedReader  = new BufferedReader(new InputStreamReader(mapInputStream, StandardCharsets.UTF_8));
+        if (mapInputStream == null) {
+            System.out.println("文件读取错误");
+        }
+        StringBuilder content = new StringBuilder("");
+        String line;
+        JSONArray jsonArray = null;
+        while (true) {
+            try {
+                if (!(null!=(line = mapBufferedReader.readLine()))) break;
+                content.append(line);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        jsonArray = JSON.parseArray(content.toString());
+
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            int x = (int) jsonObject.get("x");
+            int y = (int) jsonObject.get("y");
+            ElementObj elementObj = element.createElement(y+","+x);
+            modelManager.addElement(elementObj , GameElement.FLOOR , x , y);
+        }
+//        ElementObj[][] a =modelManager.getElementsByKey(GameElement.MAP);
+//        for (ElementObj[] elementObjs : a) {
+//            for (ElementObj elementObj : elementObjs) {
+//                if(elementObj!=null) {
+//                    System.out.println(elementObj.toString());
+//                }
+//            }
+//        }
+
+        try {
+            if(mapBufferedReader!=null){
+                mapBufferedReader.close();}
+            if(mapInputStream!=null){
+                mapInputStream.close();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
