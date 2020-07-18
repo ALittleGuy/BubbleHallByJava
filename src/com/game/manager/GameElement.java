@@ -4,9 +4,12 @@ package com.game.manager;
  * The enum Game element.
  */
 public enum  GameElement {
+
+    FLOOR,
     /**
      * Map game element.地图元素,置于顶层,优先渲染
      */
+
     MAP,
     /**
      * Play game element.玩家

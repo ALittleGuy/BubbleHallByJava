@@ -34,7 +34,6 @@ public class GameThread implements Runnable {
         while (true) {
 //      游戏开始前 加载游戏资源或者场景资源
             gameLoad();
-
 //      游戏进行时 游戏过程中
             gameRun();
 //      游戏关卡结束 游戏资源回收
@@ -69,16 +68,13 @@ public class GameThread implements Runnable {
 
     private void gameRun() {
         while (true) { //预留扩展 控制关卡的暂停等等
-
-            Map<GameElement, List<ElementObj>> all = modelManager.getGameElements();
-            List<ElementObj> map = modelManager.getElementsByKey(GameElement.MAP);
-            List<ElementObj> enemy = modelManager.getElementsByKey(GameElement.ENEMY);
-            List<ElementObj> field = modelManager.getElementsByKey(GameElement.PLAYFILE);
-
+            Map<GameElement, ElementObj[][]> all = modelManager.getGameElements();
+//            List<ElementObj> map = modelManager.getElementsByKey(GameElement.MAP);
+//            List<ElementObj> enemy = modelManager.getElementsByKey(GameElement.ENEMY);
+//            List<ElementObj> field = modelManager.getElementsByKey(GameElement.PLAYFILE);
             elementUpdate(all);
-            ElementPK(enemy , field);
-            ElementPK(map , field);
-
+//            ElementPK(enemy , field);
+//            ElementPK(map , field);
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -88,43 +84,36 @@ public class GameThread implements Runnable {
     }
 
     private void ElementPK(List<ElementObj> listA , List<ElementObj> listB) {
-
-        for (int i = 0; i <listA.size() ; i++) {
-
-            ElementObj enemy = listA.get(i);
-
-            for (int j = 0; j <listB.size(); j++) {
-                ElementObj playfile = listB.get(j);
-                if(enemy.impact(playfile)){
-                    enemy.setLiveStatus(false);
-                    playfile.setLiveStatus(false);
-                    break;
-                }
-            }
-
-        }
+//        for (int i = 0; i <listA.size() ; i++) {
+//            for (int j = 0; j <listB.size(); j++) {
+//                ElementObj playfile = listB.get(j);
+//                if(enemy.impact(playfile)){
+//                    enemy.setLiveStatus(false);
+//                    playfile.setLiveStatus(false);
+//                    break;
+//                }
+//            }
+//        }
     }
 
 
     //游戏元素自动化方法
-    private void elementUpdate(Map<GameElement, List<ElementObj>>  all){
+    private void elementUpdate(Map<GameElement, ElementObj[][] >  all){
         for (GameElement value : GameElement.values()) {
-            List<ElementObj> list = all.get(value);
-            for (int i = list.size()-1; i >=0; i--) {
-                ElementObj elementObj = list.get(i);
-                if(!elementObj.isLiveStatus()){
-                    list.remove(i);
-
-                    //开启一个死亡动画
-
-
-                    continue;
+            ElementObj[][] lists = all.get(value);
+            for (int i = 0; i < lists.length; i++) {
+                for (int j = 0; j <lists[i].length ; j++) {
+                    if(lists[i][j]==null){
+                        continue;
+                    }
+                    if (!lists[i][j].isLiveStatus()){
+                        modelManager.remove(value,i,j);
+                    }
+                    lists[i][j].model(gametime);
                 }
-                elementObj.model(gametime);
             }
         }
         gametime++;
-        
     }
 
     /**
@@ -132,19 +121,9 @@ public class GameThread implements Runnable {
      */
     private void gameLoad() {
         GameLoad.loadImage(3);
-        GameLoad.MapLoad(4);
+        GameLoad.loadMap(4);
         GameLoad.loadPlay(1);
-        //图片导入
-//        ImageIcon icon = new ImageIcon("src/res/image/play1/WeChat Image_20200213234835.jpg");
-//        ImageIcon enemyIcon = new ImageIcon("src/res/image/image/tank/bot/bot_up.png");
-//        ElementObj enemyObj = new Enemy(0, 0, 50, 50, enemyIcon);
-//        ElementObj elementObj = new Play(100, 100, 50, 50, icon);
-//        for (int i = 0; i <10 ; i++) {
-//            modelManager.addElement(new Enemy().createElement(""),GameElement.ENEMY);
-//        }
-//        modelManager.getElementsByKey(GameElement.PLAY);
-//        modelManager.addElement(elementObj, GameElement.PLAY);
-//        modelManager.addElement(enemyObj , GameElement.ENEMY);
+
     }
 }
 

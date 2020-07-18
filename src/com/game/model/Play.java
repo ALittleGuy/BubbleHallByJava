@@ -1,17 +1,12 @@
 package com.game.model;
 
-import com.game.controller.GameThread;
 import com.game.manager.GameElement;
 import com.game.manager.GameLoad;
 import com.game.manager.ModelManager;
+import com.game.model.Enum.Direction;
 
 import javax.swing.*;
-import javax.swing.plaf.DimensionUIResource;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Phaser;
 
 /**
  * The type Play.
@@ -43,13 +38,23 @@ public class Play extends ElementObj {
 
     private int speed;
 
+
+    private long time = 0;
+    private int imgX;
+    private int imgY;
+    private boolean moveStatus;
     //枚举类型配合移动扩展
 
     //图片集合
 
     @Override
     public void showElement(Graphics graphics) {
-        graphics.drawImage(this.getIcon().getImage(), this.getX(), this.getY(), this.getW(), this.getH(), null);
+        graphics.drawImage(this.getIcon().getImage(),
+                this.getX(), this.getY(),
+                this.getX()+45,this.getY() +56,
+                27 + (imgX * 100), 44 + imgY * 100,
+                72 + (imgX * 100), 100 + imgY * 100,
+                null);
     }
 
     /**
@@ -63,10 +68,10 @@ public class Play extends ElementObj {
      */
     public Play(int x, int y, int w, int h, ImageIcon icon) {
         super(x, y, w, h, icon);
-        this.speed=1;
+        this.speed = 1;
     }
 
-    public Play(){
+    public Play() {
 
     }
 
@@ -79,7 +84,6 @@ public class Play extends ElementObj {
      */
     @Override
     public void keyClick(Boolean bl, int key) {
-
         super.keyClick(bl, key);
         if (bl) {
             switch (key) {
@@ -95,7 +99,6 @@ public class Play extends ElementObj {
                     this.down = false;
                     this.left = false;
                     this.up = true;
-
                     this.direction = Direction.up;
                     break;
                 case 39:
@@ -119,6 +122,7 @@ public class Play extends ElementObj {
                 default:
                     break;
             }
+            moveStatus = true;
         } else {
             switch (key) {
                 case 37:
@@ -139,8 +143,8 @@ public class Play extends ElementObj {
 
                 default:
                     break;
-
             }
+            moveStatus = false;
 
         }
     }
@@ -150,18 +154,24 @@ public class Play extends ElementObj {
      */
     @Override
     public void move() {
-        if (this.left && this.getX() > 0) {
-            this.setX(this.getX() - speed);
+            if (this.left && this.getX() - speed >= 0) {
+                this.imgY = 1;
+                this.setX(this.getX() - speed);
+
+            }
+            if (this.right && this.getX() + speed <= 770) {
+                this.imgY = 2;
+                this.setX(this.getX() + speed);
+            }
+            if (this.up && this.getY() - speed >= 0) {
+                this.imgY = 3;
+                this.setY(this.getY() - speed);
+            }
+            if (this.down && this.getY() + speed <= 550) {
+                this.imgY = 0;
+                this.setY(this.getY() + speed);
         }
-        if (this.right && this.getX() <770) {
-            this.setX(this.getX() + speed);
-        }
-        if (this.up && this.getY() >0) {
-            this.setY(this.getY() - speed);
-        }
-        if (this.down && this.getY() < 550 ) {
-            this.setY(this.getY() + speed);
-        }
+
     }
 
     /**
@@ -170,7 +180,18 @@ public class Play extends ElementObj {
      */
     @Override
     public void updateImage(long gameTime) {
-        this.setIcon(GameLoad.playIconMap.get(direction));
+        if(gameTime-time>10) {
+            time = gameTime;
+            if (moveStatus) {
+                imgX++;
+                if (imgX > 3) {
+                    imgX = 0;
+                }
+            } else {
+                imgX = 0;
+            }
+        }
+
     }
 
 
@@ -180,16 +201,16 @@ public class Play extends ElementObj {
      * <p>
      * 发射者的坐标位置 , 发射者的方向
      */
-    @Override
-    public void add() {
-        //如果不是发射状态 直接return
-        if (!this.attackStatus) {
-            return;
-        }
-        this.attackStatus=false;
-        ElementObj elementObj = new PlayFile().createElement(this.toString());
-        ModelManager.getManager().addElement(elementObj, GameElement.PLAYFILE);
-    }
+//    @Override
+//    public void add() {
+//        //如果不是发射状态 直接return
+//        if (!this.attackStatus) {
+//            return;
+//        }
+//        this.attackStatus = false;
+//        ElementObj elementObj = new PlayFile().createElement(this.toString());
+//        ModelManager.getManager().addElement(elementObj, GameElement.PLAYFILE );
+//    }
 
 
     //此处直接使用toString , 建议在定义一个方法
@@ -200,7 +221,7 @@ public class Play extends ElementObj {
         switch (direction) {
             case right:
                 x += 50;
-                y+=20;
+                y += 20;
                 break;
             case left:
                 y += 20;
@@ -217,15 +238,19 @@ public class Play extends ElementObj {
         return "x:" + x + ",y:" + y + ",direction:" + Direction.getNameByInstance(this.direction);
     }
 
-    public ElementObj createElement(String str){
+    public ElementObj createElement(String str) {
         String[] strs = str.split(",");
         this.setX(new Integer(strs[0]));
         this.setY(new Integer(strs[1]));
-        ImageIcon icon = GameLoad.playIconMap.get(Direction.getDirectionByname(strs[2]));
+        ImageIcon icon = GameLoad.playIconMap.get("play");
         this.setW(icon.getIconWidth());
         this.setH(icon.getIconHeight());
         this.setIcon(icon);
+        this.direction = Direction.up;
+        this.imgX = 0;
+        this.imgY = 1;
         this.speed = 1;
-        return  this;
+        this.time = 0;
+        return this;
     }
 }

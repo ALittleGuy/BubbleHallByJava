@@ -1,95 +1,91 @@
 package com.game.manager;
 
-import com.game.model.Direction;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.game.model.ElementObj;
-import com.game.model.MapObj;
-import com.game.model.Play;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import com.sun.xml.internal.ws.api.client.WSPortInfo;
-
+import com.game.model.Enum.Direction;
+import com.game.model.FloorObj;
 import javax.swing.*;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * 工具类
  */
 public class GameLoad {
 
-    private static ModelManager modelManager = ModelManager.getManager();
-    public static Map<Direction, ImageIcon> playIconMap = new HashMap<>();
-
-//    static {
-//        imageIconMap = new HashMap<>();
-//        imageIconMap.put(Direction.up, new ImageIcon("src/res/image/image/tank/play1/player1_up.png"));
-//        imageIconMap.put(Direction.down, new ImageIcon("src/res/image/image/tank/play1/player1_down.png"));
-//        imageIconMap.put(Direction.right, new ImageIcon("src/res/image/image/tank/play1/player1_right.png"));
-//        imageIconMap.put(Direction.left, new ImageIcon("src/res/image/image/tank/play1/player1_left.png"));
-//    }
+    public static Map<String, ImageIcon> playIconMap = new HashMap<>();
 
     public static Map<Direction, ImageIcon> enemyIconMap;
 
-    static {
-        enemyIconMap = new HashMap<>();
-        enemyIconMap.put(Direction.left, new ImageIcon("src/res/image/image/tank/bot/bot_left.png"));
-        enemyIconMap.put(Direction.right, new ImageIcon("src/res/image/image/tank/bot/bot_right.png"));
-        enemyIconMap.put(Direction.up, new ImageIcon("src/res/image/image/tank/bot/bot_up.png"));
-        enemyIconMap.put(Direction.down, new ImageIcon("src/res/image/image/tank/bot/bot_down.png"));
-    }
+    public static Map<String, ImageIcon> mapIconMap = new HashMap<>();
 
 
+    private static ModelManager modelManager = ModelManager.getManager();
     private static Properties properties = new Properties();
 
-    public static void MapLoad(int mapId) {
 
-        properties.clear();
-        //文件路径
-        String mapName = mapId + ".map";
+    public static void main(String[] args) {
+        loadMap(1);
+    }
 
-        //用IO流读取文件对象
+    public static void loadMap(int mapId) {
+
+        //地板加载
+        String mapName = "map_config/floor.json";
         ClassLoader classLoader = GameLoad.class.getClassLoader();
-        InputStream maps = classLoader.getResourceAsStream(mapName);
-
-        if (maps == null) {
+        InputStream mapInputStream = classLoader.getResourceAsStream(mapName);
+        BufferedReader mapBufferedReader  = new BufferedReader(new InputStreamReader(mapInputStream, StandardCharsets.UTF_8));
+        if (mapInputStream == null) {
             System.out.println("文件读取错误");
         }
-        try {
-            properties.load(maps);
+        StringBuilder content = new StringBuilder("");
+        String line;
+        JSONArray jsonArray = null;
+        while (true) {
+            try {
+                if (!(null!=(line = mapBufferedReader.readLine()))) break;
 
-            //可以直接动态的获取所有的key
-            Enumeration<?> names = properties.propertyNames();
-            while (names.hasMoreElements()) {
-                String key = names.nextElement().toString();
-                String[] arrs = properties.getProperty(key).split(";");
-                for (int i = 0; i < arrs.length; i++) {
-                    MapObj mapObj = (MapObj) new MapObj().createElement(key + "," + arrs[i]);
-                    modelManager = ModelManager.getManager();
-                    modelManager.addElement(mapObj, GameElement.MAP);
-                    System.out.println(mapObj.toString());
-                }
-
+                content.append(line);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
+        System.out.println(content.toString());
+        jsonArray = JSON.parseArray(content.toString());
+
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            int x = (int) jsonObject.get("x");
+            int y = (int) jsonObject.get("y");
+            ElementObj elementObj = new FloorObj().createElement(y+","+x);
+            System.out.println(x+"  "+y);
+            modelManager.addElement(elementObj , GameElement.MAP , x , y);
+        }
+        try {
+            if(mapBufferedReader!=null){
+            mapBufferedReader.close();}
+            if(mapInputStream!=null){
+            mapInputStream.close();}
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        MapLoad(5);
-    }
-
-
     /**
-     *
+     *加载图片
      */
     public static void loadImage(int mapId) {
-
         String texturl = "GameData.config";
         ClassLoader classLoader = GameLoad.class.getClassLoader();
         InputStream texts = classLoader.getResourceAsStream(texturl);
-
-//        playIconMap存取玩家图片
         try {
             properties.clear();
             properties.load(texts);
@@ -97,10 +93,8 @@ public class GameLoad {
             Set<Object> set = properties.keySet();
             for (Object o : set) {
                 String url = properties.getProperty(o.toString());
-                System.out.println(new ImageIcon(url).toString());
-                playIconMap.put(Direction.getDirectionByname(o.toString()), new ImageIcon(url));
+                playIconMap.put(o.toString(), new ImageIcon(url));
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -110,12 +104,14 @@ public class GameLoad {
 
     /**
      * 扩展:使用配置文件来实例化对象,通
+     * 加载玩家配置
      */
-    private static Map<String , Class<?>> objMap = new HashMap<>();
-    public static void loadObj(){
+    private static Map<String, Class<?>> objMap = new HashMap<>();
+
+    public static void loadObj() {
         String texturl = "obj.config";
         ClassLoader classLoader = GameLoad.class.getClassLoader();
-        InputStream texts =classLoader.getResourceAsStream(texturl);
+        InputStream texts = classLoader.getResourceAsStream(texturl);
         properties.clear();
         try {
             properties.load(texts);
@@ -124,7 +120,7 @@ public class GameLoad {
                 System.out.println(o.toString());
                 String classUrl = properties.getProperty(o.toString());
                 Class<?> forname = Class.forName(classUrl);
-                objMap.put(o.toString(),forname);
+                objMap.put(o.toString(), forname);
             }
 
         } catch (IOException | ClassNotFoundException e) {
@@ -135,12 +131,12 @@ public class GameLoad {
 
     /**
      * 加载玩家
+     *
      * @param i
      */
     public static void loadPlay(int i) {
         loadObj();
-        String playStr = "500,500,up";
-//        Play play = (Play) new Play().createElement(playStr);
+        String playStr = "0,0,play";
         Class<?> classPlay = objMap.get("play");
         Object newInstance = null;
         try {
@@ -150,16 +146,13 @@ public class GameLoad {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
         ElementObj play = null;
 
-        if(newInstance instanceof ElementObj){
+        if (newInstance instanceof ElementObj) {
             play = ((ElementObj) newInstance).createElement(playStr);
-        }else {
+        } else {
             System.out.println("error");
         }
-
-        modelManager.addElement(play , GameElement.PLAY );
-
+        modelManager.addElement(play, GameElement.PLAY, 0, 0);
     }
 }

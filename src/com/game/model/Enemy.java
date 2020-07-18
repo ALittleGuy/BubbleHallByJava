@@ -1,9 +1,8 @@
 package com.game.model;
 
 import com.game.manager.GameLoad;
-import sun.applet.AppletResourceLoader;
+import com.game.model.Enum.Direction;
 
-import javax.crypto.ExemptionMechanism;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;

@@ -1,12 +1,8 @@
 package com.game.model;
 
-import com.game.manager.ModelManager;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.game.model.Enum.Direction;
 
-import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.lang.reflect.Field;
 
 /**
  * 子弹类

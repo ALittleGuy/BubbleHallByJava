@@ -18,44 +18,40 @@ public  class  ModelManager {
      */
     private static ModelManager MM = null;
 
-
     /**
      * 存储所有元素 {@value}
      */
-    private Map<GameElement , List<ElementObj>> gameElements;
-
-
-    /**
-     * 私有化构造函数
-     */
-    private ModelManager(){
-        init();
-    }
+    private  Map<GameElement , ElementObj[][]> gameElements;
 
 
     /**
      *  <p>添加元素</>
      */
-    public void addElement(ElementObj obj , GameElement ge){
-        List<ElementObj> list = gameElements.get(ge);
-        list.add(obj);
+    public void addElement(ElementObj obj , GameElement ge , int x , int y){
+        ElementObj[][] list = gameElements.get(ge);
+        list[x][y] = obj;
     }
-
 
     /**
      * 根据游戏元素获取对应的元素列表
      * @param ge 游戏元素
      * @return
      */
-    public List<ElementObj> getElementsByKey(GameElement ge){
+    public ElementObj[][] getElementsByKey(GameElement ge){
         return gameElements.get(ge);
     }
+
+    public void remove(GameElement gameElement , int x , int y){
+            gameElements.get(gameElement)[x][y] = null;
+    }
+
+
 
     /**
      *
      * @return 返回单例
      */
-    public Map<GameElement, List<ElementObj>> getGameElements() {
+    public Map<GameElement, ElementObj[][]> getGameElements() {
         return gameElements;
     }
 
@@ -66,17 +62,17 @@ public  class  ModelManager {
         return MM;
     }
 
-    /**
-     * 为将来的功能扩展,重写init方法准备的
-     */
-    public void init(){
-        gameElements = new HashMap<>();
-
-//        将每种元素集合都放入到map中
-        for (GameElement value : GameElement.values()){
-            gameElements.put(value , new ArrayList<>());
-        }
+    private ModelManager(){
+        init();
     }
 
+    public void init(){
+        gameElements = new HashMap<>();
+//        将每种元素集合都放入到map中
+        for (GameElement value : GameElement.values()){
+            ElementObj[][] elementObjs = new ElementObj[14][16];
+            gameElements.put(value , elementObjs);
+        }
+    }
 
 }

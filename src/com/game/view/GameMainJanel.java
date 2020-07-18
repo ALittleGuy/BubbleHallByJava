@@ -4,6 +4,7 @@ import com.game.manager.GameElement;
 import com.game.manager.ModelManager;
 import com.game.model.ElementObj;
 import com.game.model.Play;
+import com.sun.xml.internal.bind.v2.model.core.EnumLeafInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +26,6 @@ public class GameMainJanel extends JPanel implements Runnable{
      */
     public GameMainJanel(){
         init();
-        load();
     }
 
     private void init() {
@@ -34,23 +34,22 @@ public class GameMainJanel extends JPanel implements Runnable{
 
 
 
-    public void load(){
-//        ImageIcon icon = new ImageIcon("src/res/image/play1/WeChat Image_20200213234835.jpg");
-//        System.out.println(icon.toString());
-//        ElementObj elementObj = new Play(100,100,50,50 ,icon);
-//        modelManager.getElementsByKey(GameElement.PLAY);
-//        modelManager.addElement(elementObj , GameElement.PLAY);
-    }
+
 
     public void paint(Graphics graphics){
         super.paint(graphics);
-        Map<GameElement , List<ElementObj>> all = modelManager.getGameElements();
+        Map<GameElement , ElementObj[][]> all = modelManager.getGameElements();
 
         for (GameElement value : GameElement.values()) {
-            List<ElementObj> list = all.get(value);
-            for (int i = 0; i <list.size() ; i++) {
-                ElementObj elementObj = list.get(i);
-                elementObj.showElement(graphics);
+            ElementObj[][] elementObjs = all.get(value);
+            for (int i = 0; i <elementObjs.length ; i++) {
+                for (int j = 0; j <elementObjs[i].length ; j++) {
+                    ElementObj elementObj = elementObjs[i][j];
+                    if(elementObj!=null){
+                        elementObj.showElement(graphics);
+                    }
+                }
+
             }
         }
 

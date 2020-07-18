@@ -42,12 +42,15 @@ public class GameListener implements KeyListener, MouseListener {
         hashSet.add(key);
 
 
-        ArrayList<ElementObj> player = (ArrayList<ElementObj>) modelManager.getElementsByKey(GameElement.PLAY);
-        for (ElementObj elementObj : player) {
-            elementObj.keyClick(true, keyEvent.getKeyCode());
+        ElementObj[][] player =  modelManager.getElementsByKey(GameElement.PLAY);
 
+        for (int i = 0; i < player.length ; i++) {
+            for (int j = 0; j < player[i].length ; j++) {
+                if(player[i][j]!=null){
+                    player[i][j].keyClick(true, keyEvent.getKeyCode());
+                }
+            }
         }
-
 
     }
 
@@ -57,10 +60,13 @@ public class GameListener implements KeyListener, MouseListener {
             return;
         }
         hashSet.remove(keyEvent.getKeyCode());
-        ArrayList<ElementObj> player = (ArrayList<ElementObj>) modelManager.getElementsByKey(GameElement.PLAY);
-        for (ElementObj elementObj : player) {
-            elementObj.keyClick(false, keyEvent.getKeyCode());
-
+        ElementObj[][] player =  modelManager.getElementsByKey(GameElement.PLAY);
+        for (int i = 0; i < player.length ; i++) {
+            for (int j = 0; j < player[i].length ; j++) {
+                if(player[i][j]!=null){
+                    player[i][j].keyClick(false, keyEvent.getKeyCode());
+                }
+            }
         }
     }
 
