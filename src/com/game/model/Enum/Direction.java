@@ -4,7 +4,8 @@ public enum Direction {
     up,
     down,
     right,
-    left;
+    left,
+    none;
 
     public static String getNameByInstance(Direction direction) {
         switch (direction) {

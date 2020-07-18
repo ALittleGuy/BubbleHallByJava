@@ -7,6 +7,7 @@ import com.game.model.ElementObj;
 import com.game.model.Enum.Direction;
 import com.game.model.FloorObj;
 import javax.swing.*;
+import javax.xml.stream.events.StartDocument;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,8 +39,10 @@ public class GameLoad {
     }
 
     public static void loadMap(int mapId) {
-       loadFloor();
-       loadBoxs();
+        String floorFile = "map_config/floor.json";
+        String boxFile   = "map_config/box.json";
+        loadByFileName(floorFile  , "com.game.model.FloorObj" , GameElement.FLOOR); //加载地板
+        loadByFileName(boxFile , "com.game.model.BoxObj", GameElement.MAP);
     }
 
 
@@ -100,7 +103,7 @@ public class GameLoad {
      */
     public static void loadPlay(int i) {
         loadObj();
-        String playStr = "0,0,play";
+        String playStr = "96,128,play";
         Class<?> classPlay = objMap.get("play");
         Object newInstance = null;
         try {
@@ -121,21 +124,18 @@ public class GameLoad {
     }
 
 
-    private static void loadFloor(){
-        //地板加载
-        String floorFile = "map_config/floor.json";
-        String boxFile   = "map_config/box.json";
-        loadByFileName(floorFile  , new FloorObj());
-
-
-    }
 
 
 
-    private static void loadBoxs() {
-    }
 
-    private static void loadByFileName(String fileName , ElementObj element){
+    private static void loadByFileName(String fileName , String element ,  GameElement gameElement){
+
+        Class targetElement = null;
+        try {
+            targetElement = Class.forName(element);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         ClassLoader classLoader = GameLoad.class.getClassLoader();
         InputStream mapInputStream = classLoader.getResourceAsStream(fileName);
         BufferedReader mapBufferedReader  = new BufferedReader(new InputStreamReader(mapInputStream, StandardCharsets.UTF_8));
@@ -160,17 +160,22 @@ public class GameLoad {
             JSONObject jsonObject = (JSONObject) o;
             int x = (int) jsonObject.get("x");
             int y = (int) jsonObject.get("y");
-            ElementObj elementObj = element.createElement(y+","+x);
-            modelManager.addElement(elementObj , GameElement.FLOOR , x , y);
+            String type = "";
+            if(gameElement == GameElement.MAP) {
+                 type = (String) jsonObject.get("type");
+            }
+            ElementObj elementObj = null;
+            try {
+                elementObj = (ElementObj) targetElement.newInstance();
+                elementObj = elementObj.createElement(y+","+x+","+type);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            modelManager.addElement(elementObj , gameElement , x , y);
         }
-//        ElementObj[][] a =modelManager.getElementsByKey(GameElement.MAP);
-//        for (ElementObj[] elementObjs : a) {
-//            for (ElementObj elementObj : elementObjs) {
-//                if(elementObj!=null) {
-//                    System.out.println(elementObj.toString());
-//                }
-//            }
-//        }
+
 
         try {
             if(mapBufferedReader!=null){

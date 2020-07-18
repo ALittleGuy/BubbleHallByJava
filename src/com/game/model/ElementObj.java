@@ -1,5 +1,6 @@
 package com.game.model;
 
+import com.game.model.Enum.Direction;
 import com.sun.org.apache.regexp.internal.RE;
 
 import javax.swing.*;
@@ -228,6 +229,9 @@ public abstract class ElementObj {
     public boolean impact(ElementObj elementObj){
         return this.getRectangel().intersects(elementObj.getRectangel());
     }
+
+
+
 
     @Override
     public String toString() {

@@ -4,9 +4,14 @@ import com.game.manager.GameElement;
 import com.game.manager.GameLoad;
 import com.game.manager.ModelManager;
 import com.game.model.Enum.Direction;
+import com.sun.xml.internal.ws.api.client.WSPortInfo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
+import java.util.StringJoiner;
 
 /**
  * The type Play.
@@ -27,17 +32,15 @@ public class Play extends ElementObj {
      * 3.图片应该使用什么集合去存储
      */
 
-
     private boolean left = false;
     private boolean right = false;
     private boolean up = false;
     private boolean down = false;
     private Direction direction = Direction.up;
-
     private boolean attackStatus = false;
-
     private int speed;
-
+    private Direction impactDirection;
+    private Set<Integer> keySet ;
 
     private long time = 0;
     private int imgX;
@@ -51,7 +54,7 @@ public class Play extends ElementObj {
     public void showElement(Graphics graphics) {
         graphics.drawImage(this.getIcon().getImage(),
                 this.getX(), this.getY(),
-                this.getX()+45,this.getY() +56,
+                this.getX()+32,this.getY() +32,
                 27 + (imgX * 100), 44 + imgY * 100,
                 72 + (imgX * 100), 100 + imgY * 100,
                 null);
@@ -87,12 +90,14 @@ public class Play extends ElementObj {
         super.keyClick(bl, key);
         if (bl) {
             switch (key) {
-                case 37:
+                case 37  :
                     this.right = false;
                     this.down = false;
                     this.up = false;
                     this.left = true;
                     this.direction = Direction.left;
+                    keySet.add(key);
+                    moveStatus = true;
                     break;
                 case 38:
                     this.right = false;
@@ -100,14 +105,17 @@ public class Play extends ElementObj {
                     this.left = false;
                     this.up = true;
                     this.direction = Direction.up;
+                    keySet.add(key);
+                    moveStatus = true;
                     break;
                 case 39:
                     this.up = false;
                     this.down = false;
                     this.left = false;
                     this.right = true;
-
                     this.direction = Direction.right;
+                    keySet.add(key);
+                    moveStatus = true;
                     break;
                 case 40:
                     this.left = false;
@@ -115,6 +123,8 @@ public class Play extends ElementObj {
                     this.up = false;
                     this.down = true;
                     this.direction = Direction.down;
+                    keySet.add(key);
+                    moveStatus = true;
                     break;
                 case 32:
                     this.attackStatus = true;
@@ -122,31 +132,36 @@ public class Play extends ElementObj {
                 default:
                     break;
             }
-            moveStatus = true;
         } else {
             switch (key) {
                 case 37:
                     this.left = false;
+                    keySet.remove(37);
                     break;
                 case 38:
                     this.up = false;
+                    keySet.remove(38);
                     break;
                 case 39:
                     this.right = false;
+                    keySet.remove(39);
                     break;
                 case 40:
                     this.down = false;
+                    keySet.remove(40);
                     break;
                 case 32:
                     this.attackStatus = false;
                     break;
-
                 default:
                     break;
             }
-            moveStatus = false;
+            if(keySet.isEmpty()){
+                moveStatus = false;
+            }
 
         }
+
     }
 
     /**
@@ -154,20 +169,21 @@ public class Play extends ElementObj {
      */
     @Override
     public void move() {
-            if (this.left && this.getX() - speed >= 0) {
+
+            if (this.left && this.getX() - speed >= 0 && impactDirection != direction) {
                 this.imgY = 1;
                 this.setX(this.getX() - speed);
 
             }
-            if (this.right && this.getX() + speed <= 770) {
+            if ( this.right && this.getX() + speed <= 770 && impactDirection != direction) {
                 this.imgY = 2;
                 this.setX(this.getX() + speed);
             }
-            if (this.up && this.getY() - speed >= 0) {
+            if (this.up  && this.getY() - speed >= 0 && impactDirection != direction) {
                 this.imgY = 3;
                 this.setY(this.getY() - speed);
             }
-            if (this.down && this.getY() + speed <= 550) {
+            if (this.down  && this.getY() + speed <= 550 && impactDirection != direction) {
                 this.imgY = 0;
                 this.setY(this.getY() + speed);
         }
@@ -243,14 +259,53 @@ public class Play extends ElementObj {
         this.setX(new Integer(strs[0]));
         this.setY(new Integer(strs[1]));
         ImageIcon icon = GameLoad.playIconMap.get("play");
-        this.setW(icon.getIconWidth());
-        this.setH(icon.getIconHeight());
+        this.setW(22);
+        this.setH(12);
         this.setIcon(icon);
         this.direction = Direction.up;
         this.imgX = 0;
         this.imgY = 1;
         this.speed = 1;
         this.time = 0;
+        keySet = new HashSet<>();
+        this.impactDirection=Direction.none;
         return this;
+    }
+
+
+    @Override
+    public Rectangle getRectangel() {
+        return new Rectangle(this.getX()+11,this.getY()+11,10,10);
+    }
+
+    public void onImpact(Rectangle target){
+//        switch (direction){
+//            case up: this.setY(this.getY()+1);break;
+//            case down: this.setY(this.getY()-1);break;
+//            case right: this.setX(this.getX()-1);break;
+//            case left: this.setX(this.getX()+1);break;
+//        }
+        Rectangle rectangle = new Rectangle(this.getX()+10,this.getY()+11,10,10);
+        if(!rectangle.intersects(target)){
+            this.setX(this.getX()-1);
+        }
+        rectangle = new Rectangle(this.getX()+12,this.getY()+11,10,10);
+        if(!rectangle.intersects(target)){
+            this.setX(this.getX()+1);
+        }
+        rectangle = new Rectangle(this.getX()+11,this.getY()+10,10,10);
+        if(!rectangle.intersects(target)){
+            this.setY(this.getY()-1);
+        }
+        rectangle = new Rectangle(this.getX()+11,this.getY()+12,10,10);
+        if(!rectangle.intersects(target)){
+            this.setY(this.getY()+1);
+        }
+
+    }
+
+    @Override
+    public boolean impact(ElementObj elementObj) {
+        return super.impact(elementObj);
     }
 }
