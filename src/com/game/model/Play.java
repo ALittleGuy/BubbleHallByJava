@@ -41,11 +41,15 @@ public class Play extends ElementObj {
     private int speed;
     private Direction impactDirection;
     private Set<Integer> keySet ;
-
     private long time = 0;
     private int imgX;
     private int imgY;
     private boolean moveStatus;
+
+
+   //子弹数量,初始值为1
+    private int boomNum;
+    private int boomLength;
     //枚举类型配合移动扩展
 
     //图片集合
@@ -53,7 +57,7 @@ public class Play extends ElementObj {
     @Override
     public void showElement(Graphics graphics) {
         graphics.drawImage(this.getIcon().getImage(),
-                this.getX(), this.getY(),
+                this.getX(), this.getY()-10,
                 this.getX()+32,this.getY() +32,
                 27 + (imgX * 100), 44 + imgY * 100,
                 72 + (imgX * 100), 100 + imgY * 100,
@@ -86,7 +90,8 @@ public class Play extends ElementObj {
      * @param key 代表键盘的code值
      */
     @Override
-    public void keyClick(Boolean bl, int key) {
+    public void keyClick(Boolean bl, int key)
+    {
         super.keyClick(bl, key);
         if (bl) {
             switch (key) {
@@ -214,19 +219,21 @@ public class Play extends ElementObj {
     /**
      * 覆盖父类的add方法
      * 添加子弹
-     * <p>
+     *
      * 发射者的坐标位置 , 发射者的方向
+     * 坐标位置:发者的左上角
      */
-//    @Override
-//    public void add() {
-//        //如果不是发射状态 直接return
-//        if (!this.attackStatus) {
-//            return;
-//        }
-//        this.attackStatus = false;
-//        ElementObj elementObj = new PlayFile().createElement(this.toString());
-//        ModelManager.getManager().addElement(elementObj, GameElement.PLAYFILE );
-//    }
+    @Override
+    public void add() {
+        //如果不是发射状态 直接return
+        if (!this.attackStatus) {
+            return;
+        }
+        this.attackStatus = false;
+        ElementObj elementObj = new Boom().createElement(this.getX() +","+this.getY()+","+this.boomLength);
+        System.out.println(elementObj.toString());
+        ModelManager.getManager().addElement(elementObj, GameElement.PLAYFILE , ((this.getX()+16)/32), (this.getY()+16)/32);
+    }
 
 
     //此处直接使用toString , 建议在定义一个方法
@@ -267,6 +274,8 @@ public class Play extends ElementObj {
         this.imgY = 1;
         this.speed = 1;
         this.time = 0;
+        this.boomNum = 1;
+        this.boomLength =1;
         keySet = new HashSet<>();
         this.impactDirection=Direction.none;
         return this;
@@ -275,7 +284,7 @@ public class Play extends ElementObj {
 
     @Override
     public Rectangle getRectangel() {
-        return new Rectangle(this.getX()+11,this.getY()+11,10,10);
+        return new Rectangle(this.getX()+11,this.getY()+14,10,19);
     }
 
     public void onImpact(Rectangle target){
@@ -285,19 +294,19 @@ public class Play extends ElementObj {
 //            case right: this.setX(this.getX()-1);break;
 //            case left: this.setX(this.getX()+1);break;
 //        }
-        Rectangle rectangle = new Rectangle(this.getX()+10,this.getY()+11,10,10);
+        Rectangle rectangle = new Rectangle(this.getX()+10,this.getY()+14,10,19);
         if(!rectangle.intersects(target)){
             this.setX(this.getX()-1);
         }
-        rectangle = new Rectangle(this.getX()+12,this.getY()+11,10,10);
+        rectangle = new Rectangle(this.getX()+12,this.getY()+14,10,19);
         if(!rectangle.intersects(target)){
             this.setX(this.getX()+1);
         }
-        rectangle = new Rectangle(this.getX()+11,this.getY()+10,10,10);
+        rectangle = new Rectangle(this.getX()+11,this.getY()+13,10,19);
         if(!rectangle.intersects(target)){
             this.setY(this.getY()-1);
         }
-        rectangle = new Rectangle(this.getX()+11,this.getY()+12,10,10);
+        rectangle = new Rectangle(this.getX()+11,this.getY()+15,10,19);
         if(!rectangle.intersects(target)){
             this.setY(this.getY()+1);
         }

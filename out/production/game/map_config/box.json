@@ -64,7 +64,6 @@
     "y": 0,
     "type": "TREE"
   },
-
   {
     "x": 5,
     "y": 6,
@@ -75,10 +74,39 @@
     "y": 7,
     "type": "RED_BLOCK"
   },
-
   {
     "x": 5,
     "y": 8,
     "type": "GRASS"
+  },
+  {
+    "x": 0,
+    "y": 0,
+    "type": "RED_BLOCK"
+  },
+  {
+    "x": 0,
+    "y": 1,
+    "type": "RED_BLOCK"
+  },
+  {
+    "x": 0,
+    "y": 2,
+    "type": "RED_BLOCK"
+  },
+  {
+    "x": 0,
+    "y": 3,
+    "type": "RED_BLOCK"
+  },
+  {
+    "x": 0,
+    "y": 4,
+    "type": "RED_BLOCK"
+  },
+  {
+    "x": 0,
+    "y": 5,
+    "type": "RED_BLOCK"
   }
 ]

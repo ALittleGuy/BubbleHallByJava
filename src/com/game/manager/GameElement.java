@@ -28,6 +28,10 @@ public enum  GameElement {
      */
     PLAYFILE,
     /**
+     * 爆炸碎片
+     */
+    BoomPiece,
+    /**
      * Die game element.
      */
     DIE

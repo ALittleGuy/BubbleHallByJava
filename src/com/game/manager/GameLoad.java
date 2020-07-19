@@ -167,7 +167,8 @@ public class GameLoad {
             ElementObj elementObj = null;
             try {
                 elementObj = (ElementObj) targetElement.newInstance();
-                elementObj = elementObj.createElement(y+","+x+","+type);
+                elementObj = elementObj.createElement(x+","+y+","+type);
+                System.out.println(x+","+y);
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
