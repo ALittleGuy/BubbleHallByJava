@@ -1,6 +1,9 @@
 package com.game.model.Enum;
 
-public enum  GAMEPROS {
+import java.util.HashMap;
+import java.util.Map;
+
+public enum GameProps {
     /**
      * 增加泡泡数量 ， 每获得两个增加一个
      */
@@ -39,6 +42,7 @@ public enum  GAMEPROS {
     /**
      * 水雷，使得对手被泡泡包围
      */
-    WATER_MINE
+    WATER_MINE;
+
 
 }

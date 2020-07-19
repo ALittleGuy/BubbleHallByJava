@@ -4,19 +4,14 @@ import com.game.manager.GameElement;
 import com.game.manager.GameLoad;
 import com.game.manager.ModelManager;
 import com.game.model.Enum.Box;
-import com.game.model.Enum.GAMEPROS;
-import com.game.tools.Pair;
-import com.sun.org.apache.bcel.internal.generic.MONITORENTER;
-import com.sun.org.apache.xml.internal.dtm.ref.DTMDefaultBaseIterators;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.game.model.Enum.GameProps;
 
 import javax.swing.*;
-import javax.swing.text.html.StyleSheet;
 import java.awt.*;
 
 public class BoxObj extends ElementObj {
     private boolean isBreakable;
-    private GAMEPROS gamepros;
+    private GameProps gameProps;
     private Box boxType;
 
     @Override
@@ -63,7 +58,7 @@ public class BoxObj extends ElementObj {
                 "x="+this.getX()+
                 ",y="+this.getY()+
                 ",isBreakable=" + isBreakable +
-                ", gamepros=" + gamepros +
+                ", gamepros=" + gameProps +
                 ", boxType=" + boxType +
                 '}';
     }

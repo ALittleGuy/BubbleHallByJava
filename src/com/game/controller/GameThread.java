@@ -75,11 +75,13 @@ public class GameThread implements Runnable {
 //            List<ElementObj> map = modelManager.getElementsByKey(GameElement.MAP);
 //            List<ElementObj> enemy = modelManager.getElementsByKey(GameElement.ENEMY);
 //            List<ElementObj> field = modelManager.getElementsByKey(GameElement.PLAYFILE);
-            ElementObj[][] boxs = modelManager.getElementsByKey(GameElement.MAP);
-            List<ElementObj> play = modelManager.getPlayers();
-            ElementPK(play, boxs);
 
-            elementUpdate(all , play);
+            ElementObj[][] boxs = modelManager.getElementsByKey(GameElement.MAP);
+            ElementObj[][] boomPieces = modelManager.getElementsByKey(GameElement.BoomPiece);
+            List<ElementObj> play = modelManager.getPlayers();
+            ElementPK(play, boxs , false);
+            ElementPK(play , boomPieces ,  true);
+            elementUpdate(all , play );
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -88,7 +90,7 @@ public class GameThread implements Runnable {
         }
     }
 
-    private void ElementPK(List<ElementObj> player, ElementObj[][] listB) {
+    private void ElementPK(List<ElementObj> player, ElementObj[][] listB, boolean isDead) {
         for (int k = 0; k < player.size(); k++) {
             ElementObj play = player.get(k);
             for (int i = 0; i < listB.length; i++) {
@@ -96,7 +98,13 @@ public class GameThread implements Runnable {
                     if (listB[i][j] == null) {
                         continue;
                     }
+
                     if (play.impact(listB[i][j])) {
+                        if(isDead){
+                            play.setLiveStatus(false);
+                            System.out.println("sadasdsa   ");
+                            return;
+                        }
                         Play a = (Play) play;
                         a.onImpact(listB[i][j].getRectangel());
                     }
@@ -118,9 +126,9 @@ public class GameThread implements Runnable {
                         continue;
                     }
                     lists[i][j].model(gametime);
-                    if (!lists[i][j].isLiveStatus()) {
-                        modelManager.remove(value, i, j);
-                    }
+//                    if (!lists[i][j].isLiveStatus()) {
+//                        modelManager.remove(value, i, j);
+//                    }
                 }
             }
         }

@@ -5,8 +5,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.game.model.ElementObj;
 import com.game.model.Enum.Direction;
+import com.game.model.Enum.GameProps;
 import com.game.model.FloorObj;
 import com.game.model.MapObj;
+import com.game.model.PropObj;
 
 import javax.swing.*;
 import javax.xml.stream.events.StartDocument;
@@ -43,6 +45,8 @@ public class GameLoad {
         String boxFile   = "map_config/box.json";
         loadByFileName(floorFile  , "com.game.model.FloorObj" , GameElement.FLOOR); //加载地板
         loadByFileName(boxFile , "com.game.model.BoxObj", GameElement.MAP);
+        ElementObj propObj = new PropObj().createElement("8,8,"+GameProps.BLUE_MEDICINE.name());
+        modelManager.addElement(propObj,GameElement.PROP , 8,8);
     }
 
 

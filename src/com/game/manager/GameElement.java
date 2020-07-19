@@ -10,6 +10,11 @@ public enum  GameElement {
      * Map game element.地图元素,置于顶层,优先渲染
      */
 
+    PROP,
+    /**
+     * 游戏道具
+     */
+
     MAP,
     /**
      * Play game element.玩家

@@ -316,4 +316,12 @@ public class Play extends ElementObj {
     public boolean impact(ElementObj elementObj) {
         return super.impact(elementObj);
     }
+
+    @Override
+    public void setLiveStatus(boolean liveStatus) {
+        super.setLiveStatus(liveStatus);
+        if(!liveStatus){
+            ModelManager.getManager().getPlayers().remove(this);
+        }
+    }
 }

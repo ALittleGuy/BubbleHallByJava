@@ -1,11 +1,15 @@
 package com.game.model;
 
+import com.game.manager.GameElement;
 import com.game.manager.GameLoad;
+import com.game.manager.ModelManager;
 import com.game.model.Enum.Direction;
 import com.sun.org.apache.xml.internal.dtm.ref.DTMDefaultBaseIterators;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.GenericArrayType;
 
 public class BoomPiece extends ElementObj {
 
@@ -80,5 +84,20 @@ public class BoomPiece extends ElementObj {
             }
         });
         thread.start();
+    }
+    
+    @Override
+    public Rectangle getRectangel() {
+        return new Rectangle(this.getX() * 32, this.getY() * 32, this.getW(), this.getH());
+    }
+    @Override
+    public void setLiveStatus(boolean liveStatus) {
+
+
+        super.setLiveStatus(liveStatus);
+        if(!liveStatus) {
+            ModelManager modelManager = ModelManager.getManager();
+            modelManager.getElementsByKey(GameElement.BoomPiece)[this.getX()][this.getY()] = null;
+        }
     }
 }

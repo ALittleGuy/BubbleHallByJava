@@ -8,6 +8,7 @@ import com.game.model.Enum.Direction;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import java.awt.*;
+import java.util.List;
 import java.util.SplittableRandom;
 import java.util.StringJoiner;
 
@@ -62,47 +63,55 @@ public class Boom extends ElementObj {
             try {
                 Thread.sleep(3000);
                 boom.setLiveStatus(false);
-                ModelManager modelManager = ModelManager.getManager();
-                ElementObj elementObj[][] = modelManager.getElementsByKey(GameElement.MAP);
-                for (Direction direction: Direction.getDirectionList()) {
-                    int temp = 1;
-                    int dx = Direction.getChangeByDirection(direction)[0];
-                    int dy = Direction.getChangeByDirection(direction)[1];
-                    int x =this.getX();
-                    int y = this.getY();
-                    for (int i = 0; i < temp; i++) {
-                        if (direction == Direction.none){
-                            temp=1;
-                        }
-                        x += dx;
-                        y +=dy;
-                        if(x==0||y==0||x==12||y==14){
-                            i=temp-1;
-                        }
-                        if(elementObj[x][y]!=null && elementObj[x][y].isLiveStatus()!=false){
-                            System.out.println(x+","+y);
-                            elementObj[x][y].setLiveStatus(false);
-                            if(i!=temp-1){
-                                temp--;
-                            }
-                        }
-                        String statement;
-                        if(i== (temp-1)) {
-                            statement = x + "," + y + "," + direction + "," + "true";
-                        }
-                        else {
-                            statement = x + "," + y + "," + direction + "," + "false";
-                        }
-                        ElementObj boomPiece = new BoomPiece().createElement(statement);
-                        modelManager.addElement(boomPiece,GameElement.BoomPiece,x,y);
-                    }
-                }
-                
+                checkImpact(GameElement.MAP);
+
+
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
         thread.start();
+    }
+
+    public void checkImpact(GameElement gameElement){
+        ModelManager modelManager = ModelManager.getManager();
+        ElementObj elementObj[][] = modelManager.getElementsByKey(gameElement);
+        List<ElementObj> players =  modelManager.getPlayers();
+        for (Direction direction: Direction.getDirectionList()) {
+            int temp = 1;
+            int dx = Direction.getChangeByDirection(direction)[0];
+            int dy = Direction.getChangeByDirection(direction)[1];
+            int x =this.getX();
+            int y = this.getY();
+            for (int i = 0; i < temp; i++) {
+                if (direction == Direction.none){
+                    temp=1;
+                }
+                x += dx;
+                y +=dy;
+                if(x==0||y==0||x==12||y==14){
+                    i=temp-1;
+                }
+                if(elementObj[x][y]!=null && elementObj[x][y].isLiveStatus()!=false){
+                    System.out.println(x+","+y);
+                    elementObj[x][y].setLiveStatus(false);
+                    if(i!=temp-1){
+                        temp--;
+                    }
+                }
+                String statement;
+                if(i== (temp-1)) {
+                    statement = x + "," + y + "," + direction + "," + "true";
+                }
+                else {
+                    statement = x + "," + y + "," + direction + "," + "false";
+                }
+                ElementObj boomPiece = new BoomPiece().createElement(statement);
+
+                modelManager.addElement(boomPiece,GameElement.BoomPiece,x,y);
+            }
+        }
     }
 
 
