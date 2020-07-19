@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 
 /**
@@ -41,15 +42,9 @@ public class GameListener implements KeyListener, MouseListener {
         }
         hashSet.add(key);
 
-
-        ElementObj[][] player =  modelManager.getElementsByKey(GameElement.PLAY);
-
-        for (int i = 0; i < player.length ; i++) {
-            for (int j = 0; j < player[i].length ; j++) {
-                if(player[i][j]!=null){
-                    player[i][j].keyClick(true, keyEvent.getKeyCode());
-                }
-            }
+        List<ElementObj> player =  modelManager.getPlayers();
+        for (ElementObj elementObj : player) {
+            elementObj.keyClick(true , key);
         }
 
     }
@@ -60,13 +55,9 @@ public class GameListener implements KeyListener, MouseListener {
             return;
         }
         hashSet.remove(keyEvent.getKeyCode());
-        ElementObj[][] player =  modelManager.getElementsByKey(GameElement.PLAY);
-        for (int i = 0; i < player.length ; i++) {
-            for (int j = 0; j < player[i].length ; j++) {
-                if(player[i][j]!=null){
-                    player[i][j].keyClick(false, keyEvent.getKeyCode());
-                }
-            }
+        List<ElementObj> player =  modelManager.getPlayers();
+        for (ElementObj elementObj : player) {
+            elementObj.keyClick(false , keyEvent.getKeyCode());
         }
     }
 

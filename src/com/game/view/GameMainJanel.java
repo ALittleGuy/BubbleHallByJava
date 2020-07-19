@@ -39,19 +39,24 @@ public class GameMainJanel extends JPanel implements Runnable{
     public void paint(Graphics graphics){
         super.paint(graphics);
         Map<GameElement , ElementObj[][]> all = modelManager.getGameElements();
-
+        List<ElementObj> players = modelManager.getPlayers();
         for (GameElement value : GameElement.values()) {
             ElementObj[][] elementObjs = all.get(value);
             for (int i = 0; i <elementObjs.length ; i++) {
                 for (int j = 0; j <elementObjs[i].length ; j++) {
                     ElementObj elementObj = elementObjs[i][j];
-                    if(elementObj!=null){
+                    if(elementObj!=null && elementObj.isLiveStatus()){
                         elementObj.showElement(graphics);
                     }
                 }
 
             }
         }
+        for (ElementObj player : players) {
+            player.showElement(graphics);
+        }
+
+
 
     }
 

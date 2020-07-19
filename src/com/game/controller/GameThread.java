@@ -6,6 +6,7 @@ import com.game.manager.ModelManager;
 import com.game.model.ElementObj;
 import com.game.model.Play;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ public class GameThread implements Runnable {
 
     private ModelManager modelManager;
     private long gametime = 0;
+
     public GameThread() {
         modelManager = ModelManager.getManager();
     }
@@ -74,10 +76,10 @@ public class GameThread implements Runnable {
 //            List<ElementObj> enemy = modelManager.getElementsByKey(GameElement.ENEMY);
 //            List<ElementObj> field = modelManager.getElementsByKey(GameElement.PLAYFILE);
             ElementObj[][] boxs = modelManager.getElementsByKey(GameElement.MAP);
-            ElementObj[][] play = modelManager.getElementsByKey(GameElement.PLAY);
-            ElementPK(play,boxs);
+            List<ElementObj> play = modelManager.getPlayers();
+            ElementPK(play, boxs);
 
-            elementUpdate(all);
+            elementUpdate(all , play);
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -86,27 +88,18 @@ public class GameThread implements Runnable {
         }
     }
 
-    private void ElementPK(ElementObj[][] listA , ElementObj[][] listB) {
-        ElementObj play = null;
-        for (int i = 0; i <listA.length ; i++) {
-            for (int j = 0; j <listA[i].length; j++) {
-                if(listA[i][j] != null){
-                    play = listA[i][j];
-                    break;
-                }
-            }
-        }
-        if(play==null){
-            return;
-        }
-        for (int i = 0; i <listB.length ; i++) {
-            for (int j = 0; j <listB[i].length; j++) {
-                if(listB[i][j]==null){
-                    continue;
-                }
-                if(play.impact(listB[i][j])){
-                    Play a= (Play) play;
-                    a.onImpact(listB[i][j].getRectangel());
+    private void ElementPK(List<ElementObj> player, ElementObj[][] listB) {
+        for (int k = 0; k < player.size(); k++) {
+            ElementObj play = player.get(k);
+            for (int i = 0; i < listB.length; i++) {
+                for (int j = 0; j < listB[i].length; j++) {
+                    if (listB[i][j] == null) {
+                        continue;
+                    }
+                    if (play.impact(listB[i][j])) {
+                        Play a = (Play) play;
+                        a.onImpact(listB[i][j].getRectangel());
+                    }
                 }
             }
         }
@@ -115,19 +108,27 @@ public class GameThread implements Runnable {
 
 
     //游戏元素自动化方法
-    private void elementUpdate(Map<GameElement, ElementObj[][] >  all){
+    private void elementUpdate(Map<GameElement, ElementObj[][]> all , List<ElementObj> players) {
         for (GameElement value : GameElement.values()) {
             ElementObj[][] lists = all.get(value);
             for (int i = 0; i < lists.length; i++) {
-                for (int j = 0; j <lists[i].length ; j++) {
-                    if(lists[i][j]==null){
+                for (int j = 0; j < lists[i].length; j++) {
+
+                    if (lists[i][j] == null) {
                         continue;
                     }
                     lists[i][j].model(gametime);
-                    if (!lists[i][j].isLiveStatus()){
-                        modelManager.remove(value,i,j);
+                    if (!lists[i][j].isLiveStatus()) {
+                        modelManager.remove(value, i, j);
                     }
                 }
+            }
+        }
+
+        for (ElementObj player: players) {
+            player.model(gametime);
+            if(!player.isLiveStatus()){
+                modelManager.removePlayer(player);
             }
         }
         gametime++;

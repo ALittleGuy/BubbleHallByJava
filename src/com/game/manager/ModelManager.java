@@ -1,6 +1,8 @@
 package com.game.manager;
 
 import com.game.model.ElementObj;
+import com.game.model.Play;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +25,11 @@ public  class  ModelManager {
      */
     private  Map<GameElement , ElementObj[][]> gameElements;
 
+    /**
+     * 玩家元素;
+     */
+    private List<ElementObj> players ;
+
 
     /**
      *  <p>添加元素</>
@@ -43,6 +50,17 @@ public  class  ModelManager {
 
     public void remove(GameElement gameElement , int x , int y){
             gameElements.get(gameElement)[x][y] = null;
+    }
+
+    public void addPlayer(ElementObj elementObj){
+        players.add(elementObj);
+    }
+    public List<ElementObj> getPlayers(){
+        return players;
+    }
+
+    public void removePlayer(ElementObj obj){
+        players.remove(obj);
     }
 
 
@@ -70,9 +88,12 @@ public  class  ModelManager {
         gameElements = new HashMap<>();
 //        将每种元素集合都放入到map中
         for (GameElement value : GameElement.values()){
-            ElementObj[][] elementObjs = new ElementObj[14][16];
+            ElementObj[][] elementObjs = new ElementObj[15][16];
             gameElements.put(value , elementObjs);
         }
+        players = new ArrayList<>();
     }
+
+
 
 }

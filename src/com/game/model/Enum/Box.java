@@ -4,7 +4,7 @@ import java.util.concurrent.TransferQueue;
 
 public enum Box {
     //不可破坏，可隐藏
-    GRASS(0, 112, 32, 144, Box.MAP, false),
+    GRASS(0, 112, 32, 144, Box.MAP, true),
 
     //不可破坏
     TREE(32, 7, 65, 64, Box.MAP, false),
@@ -14,8 +14,8 @@ public enum Box {
 //    BLUER_ROOM,
 //    //可破坏
 //
-    YELLOW_BLOCK(0, 0, 32, 32, Box.BOX, false),
-    RED_BLOCK(32, 0, 64, 32, Box.BOX, false);
+    YELLOW_BLOCK(0, 0, 32, 32, Box.BOX, true),
+    RED_BLOCK(32, 0, 64, 32, Box.BOX, true);
 //    PAPER_BLOCK,
 //    BLUE_BLOCK,
 //    DEEPBLUE_BLOCK;

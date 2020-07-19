@@ -6,6 +6,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.game.model.ElementObj;
 import com.game.model.Enum.Direction;
 import com.game.model.FloorObj;
+import com.game.model.MapObj;
+
 import javax.swing.*;
 import javax.xml.stream.events.StartDocument;
 import java.io.BufferedReader;
@@ -24,9 +26,7 @@ import java.util.Set;
 public class GameLoad {
 
     public static Map<String, ImageIcon> playIconMap = new HashMap<>();
-
     public static Map<Direction, ImageIcon> enemyIconMap;
-
     public static Map<String, ImageIcon> mapIconMap = new HashMap<>();
 
 
@@ -120,7 +120,7 @@ public class GameLoad {
         } else {
             System.out.println("error");
         }
-        modelManager.addElement(play, GameElement.PLAY, 0, 0);
+        modelManager.addPlayer(play);
     }
 
 
@@ -168,7 +168,6 @@ public class GameLoad {
             try {
                 elementObj = (ElementObj) targetElement.newInstance();
                 elementObj = elementObj.createElement(x+","+y+","+type);
-                System.out.println(x+","+y);
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {

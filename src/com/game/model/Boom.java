@@ -3,6 +3,7 @@ package com.game.model;
 import com.game.manager.GameElement;
 import com.game.manager.GameLoad;
 import com.game.manager.ModelManager;
+import com.game.model.Enum.Box;
 import com.game.model.Enum.Direction;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 
@@ -50,7 +51,6 @@ public class Boom extends ElementObj {
         this.setIcon(GameLoad.playIconMap.get("boom"));
         this.setW(32);
         this.setH(32);
-        System.out.println(GameLoad.playIconMap.get("boom"));
         imgX = 0;
         localGameTime = 1;
         boom(this);
@@ -79,13 +79,12 @@ public class Boom extends ElementObj {
                         if(x==0||y==0||x==12||y==14){
                             i=temp-1;
                         }
-
                         if(elementObj[x][y]!=null && elementObj[x][y].isLiveStatus()!=false){
+                            System.out.println(x+","+y);
                             elementObj[x][y].setLiveStatus(false);
-                            System.out.println(elementObj[x][y].toString());
-
-                            elementObj[x][y]=null;
-                            temp--;
+                            if(i!=temp-1){
+                                temp--;
+                            }
                         }
                         String statement;
                         if(i== (temp-1)) {

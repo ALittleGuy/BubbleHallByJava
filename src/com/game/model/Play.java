@@ -231,7 +231,6 @@ public class Play extends ElementObj {
         }
         this.attackStatus = false;
         ElementObj elementObj = new Boom().createElement(this.getX() +","+this.getY()+","+this.boomLength);
-        System.out.println(elementObj.toString());
         ModelManager.getManager().addElement(elementObj, GameElement.PLAYFILE , ((this.getX()+16)/32), (this.getY()+16)/32);
     }
 

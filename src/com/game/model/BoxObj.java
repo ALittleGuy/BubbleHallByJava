@@ -1,10 +1,14 @@
 package com.game.model;
 
+import com.game.manager.GameElement;
 import com.game.manager.GameLoad;
+import com.game.manager.ModelManager;
 import com.game.model.Enum.Box;
 import com.game.model.Enum.GAMEPROS;
 import com.game.tools.Pair;
+import com.sun.org.apache.bcel.internal.generic.MONITORENTER;
 import com.sun.org.apache.xml.internal.dtm.ref.DTMDefaultBaseIterators;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import javax.swing.*;
 import javax.swing.text.html.StyleSheet;
@@ -56,12 +60,28 @@ public class BoxObj extends ElementObj {
     @Override
     public String toString() {
         return "BoxObj{" +
-                "x"+this.getX()+
-                "y"+this.getY()+
-                "isBreakable=" + isBreakable +
+                "x="+this.getX()+
+                ",y="+this.getY()+
+                ",isBreakable=" + isBreakable +
                 ", gamepros=" + gamepros +
                 ", boxType=" + boxType +
                 '}';
     }
+
+    @Override
+    public void setLiveStatus(boolean liveStatus) {
+        if(!isBreakable){
+            return;
+        }
+        super.setLiveStatus(liveStatus);
+        if(!liveStatus) {
+            ModelManager modelManager = ModelManager.getManager();
+            modelManager.getElementsByKey(GameElement.MAP)[this.getX()][this.getY()] = null;
+        }
+    }
+
+//    public void check(){
+//        System.out.println(this.getX()+","+this.getY());
+//    }
 }
 
