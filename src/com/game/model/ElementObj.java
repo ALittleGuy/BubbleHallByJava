@@ -244,5 +244,9 @@ public abstract class ElementObj {
                 ", liveStatus=" + liveStatus +
                 '}';
     }
+
+    public  void onImpact(ElementObj play){
+        return;
+    }
 }
 

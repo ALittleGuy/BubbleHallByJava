@@ -78,10 +78,13 @@ public class GameThread implements Runnable {
 
             ElementObj[][] boxs = modelManager.getElementsByKey(GameElement.MAP);
             ElementObj[][] boomPieces = modelManager.getElementsByKey(GameElement.BoomPiece);
+            ElementObj[][] props = modelManager.getElementsByKey(GameElement.PROP);
             List<ElementObj> play = modelManager.getPlayers();
-            ElementPK(play, boxs , false);
-            ElementPK(play , boomPieces ,  true);
-            elementUpdate(all , play );
+            ElementPK(play, boxs, GameElement.MAP);
+            ElementPK(play, boomPieces, GameElement.BoomPiece);
+            ElementPK(play, props , GameElement.PROP);
+
+            elementUpdate(all, play);
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -90,7 +93,7 @@ public class GameThread implements Runnable {
         }
     }
 
-    private void ElementPK(List<ElementObj> player, ElementObj[][] listB, boolean isDead) {
+    private void ElementPK(List<ElementObj> player, ElementObj[][] listB, GameElement gameElement) {
         for (int k = 0; k < player.size(); k++) {
             ElementObj play = player.get(k);
             for (int i = 0; i < listB.length; i++) {
@@ -98,15 +101,31 @@ public class GameThread implements Runnable {
                     if (listB[i][j] == null) {
                         continue;
                     }
-
+//                    if (play.impact(listB[i][j])) {
+//                        if(isDead){
+//                            play.setLiveStatus(false);
+//                            System.out.println("sadasdsa   ");
+//                            return;
+//                        }
+//                        Play a = (Play) play;
+//                        a.onImpact(listB[i][j].getRectangel());
+//                    }
                     if (play.impact(listB[i][j])) {
-                        if(isDead){
-                            play.setLiveStatus(false);
-                            System.out.println("sadasdsa   ");
-                            return;
+                        switch (gameElement) {
+                            case MAP:
+                                Play a = (Play) play;
+                                a.onImpact(listB[i][j]);
+                                break;
+                            case BoomPiece:
+                                play.setLiveStatus(false);
+                                break;
+                            case PROP:
+                                System.out.println("asd");
+                                System.out.println(i+","+j);
+                                listB[i][j].onImpact(play);
+                                listB[i][j].setLiveStatus(false);
+                                break;
                         }
-                        Play a = (Play) play;
-                        a.onImpact(listB[i][j].getRectangel());
                     }
                 }
             }
@@ -116,7 +135,7 @@ public class GameThread implements Runnable {
 
 
     //游戏元素自动化方法
-    private void elementUpdate(Map<GameElement, ElementObj[][]> all , List<ElementObj> players) {
+    private void elementUpdate(Map<GameElement, ElementObj[][]> all, List<ElementObj> players) {
         for (GameElement value : GameElement.values()) {
             ElementObj[][] lists = all.get(value);
             for (int i = 0; i < lists.length; i++) {
@@ -133,9 +152,9 @@ public class GameThread implements Runnable {
             }
         }
 
-        for (ElementObj player: players) {
+        for (ElementObj player : players) {
             player.model(gametime);
-            if(!player.isLiveStatus()){
+            if (!player.isLiveStatus()) {
                 modelManager.removePlayer(player);
             }
         }

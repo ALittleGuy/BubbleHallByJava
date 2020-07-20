@@ -65,8 +65,6 @@ public class Boom extends ElementObj {
                 boom.setLiveStatus(false);
                 checkImpact(GameElement.MAP);
 
-
-
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -79,7 +77,7 @@ public class Boom extends ElementObj {
         ElementObj elementObj[][] = modelManager.getElementsByKey(gameElement);
         List<ElementObj> players =  modelManager.getPlayers();
         for (Direction direction: Direction.getDirectionList()) {
-            int temp = 1;
+            int temp = length;
             int dx = Direction.getChangeByDirection(direction)[0];
             int dy = Direction.getChangeByDirection(direction)[1];
             int x =this.getX();
@@ -112,8 +110,15 @@ public class Boom extends ElementObj {
                 modelManager.addElement(boomPiece,GameElement.BoomPiece,x,y);
             }
         }
+
     }
 
+    @Override
+    public void setLiveStatus(boolean liveStatus) {
+        super.setLiveStatus(liveStatus);
+        if(!liveStatus){
+            ModelManager.getManager().getElementsByKey(GameElement.PLAYFILE)[this.getX()][this.getY()] = null;
 
-
+        }
+    }
 }

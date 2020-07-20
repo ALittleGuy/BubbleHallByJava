@@ -85,7 +85,6 @@ public class BoomPiece extends ElementObj {
         });
         thread.start();
     }
-    
     @Override
     public Rectangle getRectangel() {
         return new Rectangle(this.getX() * 32, this.getY() * 32, this.getW(), this.getH());
@@ -97,7 +96,8 @@ public class BoomPiece extends ElementObj {
         super.setLiveStatus(liveStatus);
         if(!liveStatus) {
             ModelManager modelManager = ModelManager.getManager();
-            modelManager.getElementsByKey(GameElement.BoomPiece)[this.getX()][this.getY()] = null;
+//            modelManager.getElementsByKey(GameElement.BoomPiece)[this.getX()][this.getY()] = null;
+            modelManager.remove(GameElement.BoomPiece, this.getX(), this.getY());
         }
     }
 }

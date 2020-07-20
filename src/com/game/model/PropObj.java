@@ -2,9 +2,8 @@ package com.game.model;
 
 import com.game.manager.GameElement;
 import com.game.manager.GameLoad;
-import com.game.model.Enum.Box;
+import com.game.manager.ModelManager;
 import com.game.model.Enum.GameProps;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -57,4 +56,93 @@ public class PropObj extends ElementObj{
 
         return this;
     }
+
+    @Override
+    public void setLiveStatus(boolean liveStatus) {
+        super.setLiveStatus(liveStatus);
+        if(!isLiveStatus()){
+            System.out.println(this.getX()+","+this.getY());
+
+            ModelManager.getManager().remove(GameElement.PROP , this.getX() , this.getY());
+        }
+    }
+
+    @Override
+    public Rectangle getRectangel() {
+        return new Rectangle(this.getX() * 32, this.getY() * 32, this.getW(), this.getH());
+    }
+
+    @Override
+    public void onImpact(ElementObj elementObj) {
+        java.util.List<ElementObj> plays  =  ModelManager.getManager().getPlayers();
+        Play play = (Play) elementObj;
+        switch (gameProps){
+            case BOOM_NUM_INCREASE: play.setBoomNum(play.getBoomNum()+1);break;
+            case BLUE_MEDICINE:play.setBoomLength(play.getBoomLength()+1);break;
+            case PURPLE_GHOST:purpleGhost(play);break;
+            case RED_GHOST:
+                for (ElementObj obj : plays) {
+                    Play temp = (Play) obj;
+                    if(temp != play){
+                        purpleGhost(temp);
+                    }
+                }break;
+            case SUPER_CARD:play.setSuperCard(play.getSuperCard()+1);break;
+            case CONTROLLER:
+                for (ElementObj obj : plays) {
+                Play temp = (Play) obj;
+                if(temp != play){
+                    controller(temp);
+                }
+            }break;
+            case PURPLE_MEDICINE:play.setReverseStatus(false);
+            case WATER_MINE:
+                for (ElementObj obj : plays) {
+                    Play temp = (Play) obj;
+                    if(temp!=play){
+                        waterMime(temp);
+                    }
+                }
+
+        }
+    }
+
+    public void purpleGhost(Play play){
+        play.setReverseStatus(true);
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(20000);
+                play.setReverseStatus(false);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        thread.start();
+    }
+
+    public void controller(Play play){
+        play.setStuckStatus(true);
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(5000);
+                play.setStuckStatus(false);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        thread.start();
+    }
+
+    public void waterMime(Play play){
+        play.setBoomStuckStatus(true);
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(20000);
+                play.setBoomStuckStatus(false);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 }

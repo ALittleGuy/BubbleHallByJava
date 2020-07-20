@@ -30,23 +30,23 @@ public class GameLoad {
     public static Map<String, ImageIcon> playIconMap = new HashMap<>();
     public static Map<Direction, ImageIcon> enemyIconMap;
     public static Map<String, ImageIcon> mapIconMap = new HashMap<>();
-
-
     private static ModelManager modelManager = ModelManager.getManager();
     private static Properties properties = new Properties();
-
-
-    public static void main(String[] args) {
-        loadMap(1);
-    }
+//    public static void main(String[] args) {
+//        loadMap(1);
+//    }
 
     public static void loadMap(int mapId) {
         String floorFile = "map_config/floor.json";
         String boxFile   = "map_config/box.json";
         loadByFileName(floorFile  , "com.game.model.FloorObj" , GameElement.FLOOR); //加载地板
         loadByFileName(boxFile , "com.game.model.BoxObj", GameElement.MAP);
-        ElementObj propObj = new PropObj().createElement("8,8,"+GameProps.BLUE_MEDICINE.name());
+        ElementObj propObj = new PropObj().createElement("8,8,"+GameProps.WATER_MINE.name());
+        ElementObj propObj1 = new PropObj().createElement("3,3,"+GameProps.RED_GHOST.name());
+        ElementObj temp = new PropObj().createElement("1,1,"+GameProps.CONTROLLER.name());
         modelManager.addElement(propObj,GameElement.PROP , 8,8);
+        modelManager.addElement(temp,GameElement.PROP , 1,1);
+        modelManager.addElement(propObj1 , GameElement.PROP , 3,3);
     }
 
 
@@ -108,23 +108,37 @@ public class GameLoad {
     public static void loadPlay(int i) {
         loadObj();
         String playStr = "96,128,play";
+        String enemyStr = "128,96,play";
+
         Class<?> classPlay = objMap.get("play");
+        Class classEnemy = objMap.get("enemy");
         Object newInstance = null;
+        Object newInstance1 = null;
         try {
             newInstance = classPlay.newInstance();
+            newInstance1 = classEnemy.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
         ElementObj play = null;
-
+        ElementObj enemy = null;
         if (newInstance instanceof ElementObj) {
             play = ((ElementObj) newInstance).createElement(playStr);
+
+        } else {
+            System.out.println("error");
+        }
+
+        if (newInstance1 instanceof ElementObj) {
+            enemy = ((ElementObj) newInstance).createElement(enemyStr);
+
         } else {
             System.out.println("error");
         }
         modelManager.addPlayer(play);
+        modelManager.addPlayer(enemy);
     }
 
 
