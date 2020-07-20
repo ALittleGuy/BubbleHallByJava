@@ -88,6 +88,9 @@ public class Boom extends ElementObj {
                 }
                 x += dx;
                 y +=dy;
+                if(x<0||y<0){
+                    break;
+                }
                 if(x==0||y==0||x==12||y==14){
                     i=temp-1;
                 }

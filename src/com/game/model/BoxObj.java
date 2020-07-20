@@ -75,6 +75,10 @@ public class BoxObj extends ElementObj {
         }
     }
 
+    public boolean isBreakable() {
+        return isBreakable;
+    }
+
 //    public void check(){
 //        System.out.println(this.getX()+","+this.getY());
 //    }

@@ -2,6 +2,7 @@ package com.game.test;
 
 import sun.rmi.server.InactiveGroupException;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,11 +20,15 @@ public class test {
     static BinaryOperator<Integer> temp = Integer::sum;
 
     public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        IntStream.range(1,10).forEach(list::add);
+//        List<Integer> list = new ArrayList<>();
+//        IntStream.range(1,10).forEach(list::add);
+//
+//        System.out.println("ans:");
+//        eval(list , n->n%2==0);
 
-        System.out.println("ans:");
-        eval(list , n->n%2==0);
+        Point a= new Point(1,2);
+        Point b = new Point(1,2);
+        System.out.println(a.equals(b));
     }
 
     public static void eval(List<Integer> list , Predicate<Integer> predicate){
