@@ -66,7 +66,6 @@ public class GameJFrame extends JFrame {
         //界面刷新
         this.setVisible(true); //显示界面
 
-
         if(this.jPanel instanceof Runnable){
             new Thread((Runnable) this.jPanel).start();
         }

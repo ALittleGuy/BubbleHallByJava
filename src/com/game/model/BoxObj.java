@@ -82,5 +82,12 @@ public class BoxObj extends ElementObj {
 //    public void check(){
 //        System.out.println(this.getX()+","+this.getY());
 //    }
+
+
+
+    public Box getBoxType() {
+        return boxType;
+    }
+
 }
 

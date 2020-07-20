@@ -6,23 +6,27 @@ package com.game.manager;
 public enum  GameElement {
 
     FLOOR,
-    /**
-     * Map game element.地图元素,置于顶层,优先渲染
-     */
+
 
     PROP,
     /**
      * 游戏道具
      */
 
+
+
+
     MAP,
+    /**
+     * Enemy game element.敌人
+     */
+
     /**
      * Play game element.玩家
      */
     PLAY,
-    /**
-     * Enemy game element.敌人
-     */
+
+
     ENEMY,
     /**
      * Boss game element.
@@ -39,9 +43,11 @@ public enum  GameElement {
     /**
      * Die game element.
      */
-    DIE
-    
-    
+    DIE,
+
+    GRASS
+
+
 
 
 

@@ -15,7 +15,6 @@ public class GameStart {
     public static void main(String[] args) {
         GameJFrame gameJFrame = new GameJFrame();
         GameMainJanel gameMainJanel = new GameMainJanel();
-
         //实例化监听
         GameListener gameListener = new GameListener();
 

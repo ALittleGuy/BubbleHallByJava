@@ -41,6 +41,12 @@ public class GameMainJanel extends JPanel implements Runnable{
         Map<GameElement , ElementObj[][]> all = modelManager.getGameElements();
         List<ElementObj> players = modelManager.getPlayers();
         for (GameElement value : GameElement.values()) {
+            if(value == GameElement.PLAY){
+                for (ElementObj player : players) {
+                    player.showElement(graphics);
+                }
+                continue;
+            }
             ElementObj[][] elementObjs = all.get(value);
             for (int i = 0; i <elementObjs.length ; i++) {
                 for (int j = 0; j <elementObjs[i].length ; j++) {
@@ -52,9 +58,7 @@ public class GameMainJanel extends JPanel implements Runnable{
 
             }
         }
-        for (ElementObj player : players) {
-            player.showElement(graphics);
-        }
+
 
 
 

@@ -228,7 +228,11 @@ public class GameLoad {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            modelManager.addElement(elementObj , gameElement , x , y);
+            if(type.equals("GRASS")){
+                modelManager.addElement(elementObj,GameElement.GRASS , x, y);
+            }else {
+                modelManager.addElement(elementObj , gameElement , x , y);
+            }
         }
 
 

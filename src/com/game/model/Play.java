@@ -3,6 +3,7 @@ package com.game.model;
 import com.game.manager.GameElement;
 import com.game.manager.GameLoad;
 import com.game.manager.ModelManager;
+import com.game.model.Enum.Box;
 import com.game.model.Enum.Direction;
 import com.sun.media.sound.SoftPointResampler;
 
@@ -373,6 +374,8 @@ public class Play extends ElementObj {
 //            case right: this.setX(this.getX()-1);break;
 //            case left: this.setX(this.getX()+1);break;
 //        }
+
+
         Rectangle target = elementObj.getRectangel();
         Rectangle rectangle = new Rectangle(this.getX() + 10, this.getY() + 14, 10, 19);
         if (!rectangle.intersects(target)) {

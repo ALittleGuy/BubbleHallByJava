@@ -5,7 +5,9 @@ import com.game.manager.GameLoad;
 import com.game.manager.ModelManager;
 import com.game.model.ElementObj;
 import com.game.model.Play;
+import com.sun.xml.internal.bind.v2.model.core.EnumLeafInfo;
 
+import javax.xml.bind.Element;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,12 +43,13 @@ public class GameThread implements Runnable {
             gameRun();
 //      游戏关卡结束 游戏资源回收
             gameOver();
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            break;
+//
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 
@@ -89,6 +92,10 @@ public class GameThread implements Runnable {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+
+            if(play.size()==1){
+                break;
             }
         }
     }
@@ -136,13 +143,24 @@ public class GameThread implements Runnable {
 
     //游戏元素自动化方法
     private void elementUpdate(Map<GameElement, ElementObj[][]> all, List<ElementObj> players) {
+        for (ElementObj player : players) {
+            player.model(gametime);
+            if (!player.isLiveStatus()) {
+                modelManager.removePlayer(player);
+            }
+        }
         for (GameElement value : GameElement.values()) {
+            if(value == GameElement.PLAY){
+                continue;
+            }
             ElementObj[][] lists = all.get(value);
             for (int i = 0; i < lists.length; i++) {
                 for (int j = 0; j < lists[i].length; j++) {
 
                     if (lists[i][j] == null) {
                         continue;
+                    }
+                    if(value == GameElement.MAP){
                     }
                     lists[i][j].model(gametime);
 //                    if (!lists[i][j].isLiveStatus()) {
@@ -152,12 +170,7 @@ public class GameThread implements Runnable {
             }
         }
 
-        for (ElementObj player : players) {
-            player.model(gametime);
-            if (!player.isLiveStatus()) {
-                modelManager.removePlayer(player);
-            }
-        }
+
         gametime++;
     }
 
@@ -168,7 +181,6 @@ public class GameThread implements Runnable {
         GameLoad.loadImage(3);
         GameLoad.loadMap(4);
         GameLoad.loadPlay(1);
-
     }
 }
 
