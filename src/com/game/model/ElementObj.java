@@ -19,6 +19,16 @@ public abstract class ElementObj {
     private int w;
     private int h;
     private ImageIcon icon;
+    private boolean visiable = true;
+
+
+    public boolean isVisiable() {
+        return visiable;
+    }
+
+    public void setVisiable(boolean visiable) {
+        this.visiable = visiable;
+    }
 
     /**
      * 生存状态:true代表存活,false代表死亡

@@ -57,6 +57,7 @@
   {"x": 2, "y": 11, "type": "RED_BLOCK"},
   {"x": 4, "y": 11, "type": "RED_BLOCK"},
   {"x": 3, "y": 12, "type": "RED_BLOCK"},
+  {"x": 11, "y": 12, "type": "RED_BLOCK"},
 
 
 
@@ -75,7 +76,7 @@
   {"x": 13, "y": 11, "type": "BLUER_ROOM"},
   {"x": 1, "y": 3, "type": "BLUER_ROOM"},
   {"x": 3, "y": 3, "type": "BLUER_ROOM"},
-  {"x": 7, "y": 5, "type": "BLUER_ROOM"},
+  {"x": 5, "y": 5, "type": "BLUER_ROOM"},
 
 
   {"x": 12, "y": 0, "type": "YELLOW_ROOM"},
@@ -91,6 +92,7 @@
   {"x": 3, "y": 1, "type": "YELLOW_ROOM"},
   {"x": 1, "y": 5, "type": "YELLOW_ROOM"},
   {"x": 3, "y": 5, "type": "YELLOW_ROOM"},
+  {"x": 13, "y": 9, "type": "YELLOW_ROOM"},
   {"x": 11, "y": 9, "type": "YELLOW_ROOM"},
 
 
@@ -168,7 +170,9 @@
   {"x": 5, "y": 6, "type": "GRASS"},
   {"x": 9, "y": 6, "type": "GRASS"},
   {"x": 11, "y": 6, "type": "GRASS"},
-  {"x": 13, "y": 6, "type": "GRASS"}
+  {"x": 13, "y": 6, "type": "GRASS"},
+
+
 
 
 ]

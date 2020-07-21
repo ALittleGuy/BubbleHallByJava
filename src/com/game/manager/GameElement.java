@@ -13,6 +13,7 @@ public enum  GameElement {
      * 游戏道具
      */
 
+    GRASS,
 
 
 
@@ -34,7 +35,6 @@ public enum  GameElement {
 
     ENEMY,
 
-    GRASS,
 
     /**
      * Boss game element.

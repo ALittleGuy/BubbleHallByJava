@@ -376,6 +376,7 @@ public class Play extends ElementObj {
 //        }
 
 
+
         Rectangle target = elementObj.getRectangel();
         Rectangle rectangle = new Rectangle(this.getX() + 10, this.getY() + 14, 10, 19);
         if (!rectangle.intersects(target)) {

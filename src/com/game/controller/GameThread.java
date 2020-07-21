@@ -25,6 +25,7 @@ public class GameThread implements Runnable {
 
     private ModelManager modelManager;
     private long gametime = 0;
+    private boolean isImpacting;
 
     public GameThread() {
         modelManager = ModelManager.getManager();
@@ -82,11 +83,20 @@ public class GameThread implements Runnable {
             ElementObj[][] boxs = modelManager.getElementsByKey(GameElement.MAP);
             ElementObj[][] boomPieces = modelManager.getElementsByKey(GameElement.BoomPiece);
             ElementObj[][] props = modelManager.getElementsByKey(GameElement.PROP_AFTER_BOOM);
+            ElementObj[][] grass = modelManager.getElementsByKey(GameElement.GRASS);
+
             List<ElementObj> play = modelManager.getPlayers();
+            isImpacting = false;
+            ElementPK(play,grass,GameElement.GRASS);
             ElementPK(play, boxs, GameElement.MAP);
             ElementPK(play, boomPieces, GameElement.BoomPiece);
             ElementPK(play, props , GameElement.PROP_AFTER_BOOM);
 
+            if (!isImpacting){
+                for (ElementObj elementObj : play) {
+                    elementObj.setVisiable(true);
+                }
+            }
             elementUpdate(all, play);
             try {
                 Thread.sleep(10);
@@ -101,6 +111,7 @@ public class GameThread implements Runnable {
     }
 
     private void ElementPK(List<ElementObj> player, ElementObj[][] listB, GameElement gameElement) {
+        boolean flag = true;
         for (int k = 0; k < player.size(); k++) {
             ElementObj play = player.get(k);
             for (int i = 0; i < listB.length; i++) {
@@ -118,7 +129,9 @@ public class GameThread implements Runnable {
 //                        a.onImpact(listB[i][j].getRectangel());
 //                    }
                     if (play.impact(listB[i][j])) {
+                        isImpacting = true;
                         switch (gameElement) {
+                            case GRASS:play.setVisiable(false);break;
                             case MAP:
                                 Play a = (Play) play;
                                 a.onImpact(listB[i][j]);
@@ -132,6 +145,7 @@ public class GameThread implements Runnable {
                                 break;
                         }
                     }
+
                 }
             }
         }

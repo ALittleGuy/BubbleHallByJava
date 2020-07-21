@@ -64,7 +64,7 @@ public class GameLoad {
             }
         }
         System.out.println(sum);
-        sum*=0.8;
+//        sum*=0.9;
         GameProps gameProps[] = GameProps.values();
         for (GameProps gameProp : gameProps) {
             int boud = (int) (sum*gameProp.getAppearRate() -1);

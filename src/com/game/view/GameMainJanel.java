@@ -64,10 +64,10 @@ public class GameMainJanel extends JPanel implements Runnable{
             ElementObj[][] elementObjs = all.get(value);
             for (int i = 0; i <elementObjs.length ; i++) {
                 for (int j = 0; j <elementObjs[i].length ; j++) {
-                    if(value == GameElement.MAP && (i==x1&&j==y1)){
+                    if(value == GameElement.MAP && (i==x1&&j==y1) && players.get(0).isVisiable()){
                         players.get(0).showElement(graphics);
                     }
-                    if(value == GameElement.MAP && players.size()>=2 &&(i==x2&&j==y2)){
+                    if(value == GameElement.MAP && players.size()>=2 &&(i==x2&&j==y2)&& players.get(1).isVisiable()){
                         players.get(1).showElement(graphics);
                     }
                     ElementObj elementObj = elementObjs[i][j];
