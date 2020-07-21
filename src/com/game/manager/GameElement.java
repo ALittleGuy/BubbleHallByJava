@@ -24,6 +24,8 @@ public enum  GameElement {
     /**
      * Play game element.玩家
      */
+    PROP_AFTER_BOOM,
+
     PLAY,
 
 
@@ -44,6 +46,8 @@ public enum  GameElement {
      * Die game element.
      */
     DIE,
+
+
 
     GRASS
 

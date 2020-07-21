@@ -81,11 +81,11 @@ public class GameThread implements Runnable {
 
             ElementObj[][] boxs = modelManager.getElementsByKey(GameElement.MAP);
             ElementObj[][] boomPieces = modelManager.getElementsByKey(GameElement.BoomPiece);
-            ElementObj[][] props = modelManager.getElementsByKey(GameElement.PROP);
+            ElementObj[][] props = modelManager.getElementsByKey(GameElement.PROP_AFTER_BOOM);
             List<ElementObj> play = modelManager.getPlayers();
             ElementPK(play, boxs, GameElement.MAP);
             ElementPK(play, boomPieces, GameElement.BoomPiece);
-            ElementPK(play, props , GameElement.PROP);
+            ElementPK(play, props , GameElement.PROP_AFTER_BOOM);
 
             elementUpdate(all, play);
             try {
@@ -126,9 +126,7 @@ public class GameThread implements Runnable {
                             case BoomPiece:
                                 play.setLiveStatus(false);
                                 break;
-                            case PROP:
-                                System.out.println("asd");
-                                System.out.println(i+","+j);
+                            case PROP_AFTER_BOOM:
                                 listB[i][j].onImpact(play);
                                 listB[i][j].setLiveStatus(false);
                                 break;

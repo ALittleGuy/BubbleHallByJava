@@ -62,8 +62,7 @@ public class PropObj extends ElementObj {
         super.setLiveStatus(liveStatus);
         if (!isLiveStatus()) {
             System.out.println(this.getX() + "," + this.getY());
-
-            ModelManager.getManager().remove(GameElement.PROP, this.getX(), this.getY());
+            ModelManager.getManager().remove(GameElement.PROP_AFTER_BOOM, this.getX(), this.getY());
         }
     }
 

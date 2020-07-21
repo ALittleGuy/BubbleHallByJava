@@ -1,7 +1,12 @@
 package com.game.view;
 
 
+import com.sun.org.apache.xml.internal.resolver.helpers.BootstrapResolver;
+import com.sun.xml.internal.stream.dtd.DTDGrammarUtil;
+
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -20,8 +25,8 @@ import java.awt.event.MouseMotionListener;
  * <p/>
  */
 public class GameJFrame extends JFrame {
-    private static int GameX = 770;
-    private static int GameY = 610;
+    private static int GameX = 610;
+    private static int GameY = 544;
 
     private JPanel jPanel = null;  //正在显示的面板
     private KeyListener keyListener = null; //键盘监听
@@ -35,6 +40,7 @@ public class GameJFrame extends JFrame {
     }
 
     private void init() {
+        this.setLayout(new BorderLayout());
         this.setSize(GameX, GameY);
         this.setTitle("J");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //设置退出时关闭窗体
@@ -53,7 +59,13 @@ public class GameJFrame extends JFrame {
      */
     public void start(){
         if(jPanel != null){
-            this.add(jPanel);
+            this.add(jPanel, BorderLayout.CENTER);
+            JPanel jPanelEast = new PartJpanel("src/res/image/Pictures/right_sight.png",120,416);
+            JPanel jPanelSouth = new PartJpanel("src/res/image/Pictures/menuBar.png",GameX ,48);
+            JPanel jPanelNorth = new PartJpanel("src/res/image/Pictures/menuBar.png",GameX ,48);
+            this.add(jPanelEast, BorderLayout.EAST );
+            this.add(jPanelSouth,BorderLayout.SOUTH);
+            this.add(jPanelNorth,BorderLayout.NORTH);
         }
 
         if(keyListener!=null){

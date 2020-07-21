@@ -244,7 +244,7 @@ public class Play extends ElementObj {
             this.setX(this.getX() - speed);
 
         }
-        if (this.right && this.getX() + speed <= 770 && impactDirection != direction) {
+        if (this.right && this.getX() + speed <= 448 && impactDirection != direction) {
             this.imgY = 2;
             this.setX(this.getX() + speed);
         }
@@ -252,7 +252,7 @@ public class Play extends ElementObj {
             this.imgY = 3;
             this.setY(this.getY() - speed);
         }
-        if (this.down && this.getY() + speed <= 550 && impactDirection != direction) {
+        if (this.down && this.getY() + speed <= 384 && impactDirection != direction) {
             this.imgY = 0;
             this.setY(this.getY() + speed);
         }

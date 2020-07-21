@@ -34,8 +34,6 @@ public class GameMainJanel extends JPanel implements Runnable{
 
 
 
-
-
     public void paint(Graphics graphics){
         super.paint(graphics);
         Map<GameElement , ElementObj[][]> all = modelManager.getGameElements();
