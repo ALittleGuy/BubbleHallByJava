@@ -16,7 +16,12 @@ public enum  GameElement {
 
 
 
+    PROP_AFTER_BOOM,
+
     MAP,
+    PLAY,
+
+
     /**
      * Enemy game element.敌人
      */
@@ -24,12 +29,13 @@ public enum  GameElement {
     /**
      * Play game element.玩家
      */
-    PROP_AFTER_BOOM,
 
-    PLAY,
 
 
     ENEMY,
+
+    GRASS,
+
     /**
      * Boss game element.
      */
@@ -49,7 +55,6 @@ public enum  GameElement {
 
 
 
-    GRASS
 
 
 

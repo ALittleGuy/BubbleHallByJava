@@ -74,12 +74,12 @@ public class GameLoad {
             sum-=boud;
             for (int i = 0; i < boud; i++) {
                 int a = locationSet.size();
+                if(a==0){
+                    break;
+                }
                 if(a != 0){
                     a = new Random().nextInt(a);
-
                 }
-                System.out.println("a:"+a);
-                System.out.println("length:"+locationSet.size());
                 Pair<Integer,Integer> location = locationSet.get(a);
                 locationSet.remove(a);
                 ElementObj temp = new PropObj().createElement(location.getKey()+","+location.getValue()+","+gameProp.name());
@@ -148,8 +148,8 @@ public class GameLoad {
      */
     public static void loadPlay(int i) {
         loadObj();
-        String play1Str = "96,128,play,false";
-        String play2Str = "128,96,play2,true";
+        String play1Str = "0,0,play,false";
+        String play2Str = "448,352,play2,true";
         Class<?> classPlay = objMap.get("play");
         Object  play1= null;
         Object play2 =  null;
@@ -215,10 +215,7 @@ public class GameLoad {
             JSONObject jsonObject = (JSONObject) o;
             int x = (int) jsonObject.get("x");
             int y = (int) jsonObject.get("y");
-            String type = "";
-            if(gameElement == GameElement.MAP) {
-                 type = (String) jsonObject.get("type");
-            }
+            String type = (String) jsonObject.get("type");
             ElementObj elementObj = null;
             try {
                 elementObj = (ElementObj) targetElement.newInstance();

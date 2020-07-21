@@ -294,7 +294,7 @@ public class Play extends ElementObj {
         }
         this.attackStatus = false;
         ElementObj elementObj = new Boom().createElement(this.getX() + "," + this.getY() + "," + this.boomLength);
-        ModelManager.getManager().addElement(elementObj, GameElement.PLAYFILE, ((this.getX() + 16) / 32), (this.getY() + 16) / 32);
+        ModelManager.getManager().addElement(elementObj, GameElement.PLAYFILE, ((this.getX() + 16) / 32), (this.getY() + 24) / 32);
         boomNum -= 2;
         Thread thread = new Thread(() -> {
             try {

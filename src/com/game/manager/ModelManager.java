@@ -94,6 +94,25 @@ public  class  ModelManager {
         players = new ArrayList<>();
     }
 
+    public ElementObj[][] getAll(){
+//        ElementObj[][] elementObjs = new ElementObj[][];
+//        for (GameElement gameElement : gameElements.keySet()) {
+//            if(gameElement==GameElement.PLAY){
+//                e
+//            }
+//            ElementObj[][] temp = gameElements.get(gameElement);
+//            for (int i = 0; i <16 ; i++) {
+//                for (int j = 0; j < 15; j++) {
+//                    if(temp[i][j]==null){
+//                        continue;
+//                    }
+//                    elementObjs[i][j] = temp[i][j];
+//                }
+//            }
+//
+//        }
+        return null;
+    }
 
 
 }

@@ -22,10 +22,14 @@ public class BoxObj extends ElementObj {
             case TREE:
                 up = 25;
                 break;
-            case RED_BLOCK:
-            case YELLOW_BLOCK:
-                down = 10;
+            case YELLOW_ROOM:
+            case BLUER_ROOM:
+                up = 16;
                 break;
+//            case RED_BLOCK:
+//            case YELLOW_BLOCK:
+//                down = 10;
+//                break;
         }
         graphics.drawImage(this.getIcon().getImage(),
                 this.getX() * this.getW(), this.getY() * this.getH() - up,
@@ -51,7 +55,11 @@ public class BoxObj extends ElementObj {
 
     @Override
     public Rectangle getRectangel() {
+//        if(boxType==Box.BLUER_ROOM || boxType==Box.YELLOW_ROOM){
+//            return new Rectangle(this.getX() * 32, this.getY() * 32-14, this.getW(), this.getH()+4);
+//        }
         return new Rectangle(this.getX() * 32, this.getY() * 32, this.getW(), this.getH());
+
     }
 
     @Override

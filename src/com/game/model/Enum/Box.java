@@ -11,13 +11,13 @@ public enum Box {
     TREE(32, 7, 65, 64, Box.MAP, false),
     //    IRON_BLOCK,
 //    ROAD_BLOCK,
-    YELLOW_ROOM(64,16 , 96,64 , Box.BOX , false),
-    BLUER_ROOM(32,64,54,112, Box.MAP , false),
+    YELLOW_ROOM(64,16 , 96,64 , Box.MAP , false),
+    BLUER_ROOM(32,64,64,112, Box.MAP , false),
 //    //可破坏
 //
-    YELLOW_BLOCK(0, 0, 32, 32, Box.BOX, true),
+    YELLOW_BLOCK(0, 0,  32, 32, Box.BOX, true),
     RED_BLOCK(32, 0, 64, 32, Box.BOX, true),
-    PAPER_BLOCK(98,0,128,32,Box.MAP,true);
+    PAPER_BLOCK(98,0,128,32,Box.BOX,true);
 //    BLUE_BLOCK,
 //    DEEPBLUE_BLOCK;
 

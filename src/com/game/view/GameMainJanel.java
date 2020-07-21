@@ -38,16 +38,38 @@ public class GameMainJanel extends JPanel implements Runnable{
         super.paint(graphics);
         Map<GameElement , ElementObj[][]> all = modelManager.getGameElements();
         List<ElementObj> players = modelManager.getPlayers();
+
+//        if(value == GameElement.PLAY){
+//            for (ElementObj player : players) {
+//                player.showElement(graphics);
+//            }
+//            continue;
+//        }
+
+        int x1,y1,x2,y2;
+        x1=y1=x2=y2=-1;
+        if(players.size()>=1) {
+            x1 = (players.get(0).getX() + 16) / 32;
+            y1 = (players.get(0).getY() + 16) / 32;
+        }
+        if(players.size()>=2){
+            x2 = (players.get(1).getX() + 16) / 32;
+            y2 = (players.get(1).getY() + 16) / 32;
+        }
+
         for (GameElement value : GameElement.values()) {
-            if(value == GameElement.PLAY){
-                for (ElementObj player : players) {
-                    player.showElement(graphics);
-                }
+            if(value==GameElement.PLAY){
                 continue;
             }
             ElementObj[][] elementObjs = all.get(value);
             for (int i = 0; i <elementObjs.length ; i++) {
                 for (int j = 0; j <elementObjs[i].length ; j++) {
+                    if(value == GameElement.MAP && (i==x1&&j==y1)){
+                        players.get(0).showElement(graphics);
+                    }
+                    if(value == GameElement.MAP && players.size()>=2 &&(i==x2&&j==y2)){
+                        players.get(1).showElement(graphics);
+                    }
                     ElementObj elementObj = elementObjs[i][j];
                     if(elementObj!=null && elementObj.isLiveStatus()){
                         elementObj.showElement(graphics);

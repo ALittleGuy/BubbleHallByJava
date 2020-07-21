@@ -1,112 +1,174 @@
 [
-  {
-    "x": 0,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 1,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 2,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 3,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 4,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 5,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 6,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 7,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 8,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 9,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 10,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 11,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 12,
-    "y": 0,
-    "type": "TREE"
-  },
-  {
-    "x": 5,
-    "y": 6,
-    "type": "YELLOW_BLOCK"
-  },
-  {
-    "x": 5,
-    "y": 7,
-    "type": "RED_BLOCK"
-  },
-  {
-    "x": 5,
-    "y": 8,
-    "type": "GRASS"
-  },
-  {
-    "x": 0,
-    "y": 0,
-    "type": "RED_BLOCK"
-  },
-  {
-    "x": 0,
-    "y": 1,
-    "type": "RED_BLOCK"
-  },
-  {
-    "x": 0,
-    "y": 2,
-    "type": "RED_BLOCK"
-  },
-  {
-    "x": 0,
-    "y": 3,
-    "type": "RED_BLOCK"
-  },
-  {
-    "x": 0,
-    "y": 4,
-    "type": "RED_BLOCK"
-  },
-  {
-    "x": 0,
-    "y": 5,
-    "type": "RED_BLOCK"
-  }
+  {"x": 1, "y": 0, "type": "YELLOW_BLOCK"},
+  {"x": 3, "y": 0, "type": "YELLOW_BLOCK"},
+  {"x": 11, "y": 1, "type": "YELLOW_BLOCK"},
+  {"x": 2, "y": 2, "type": "YELLOW_BLOCK"},
+  {"x": 4, "y": 2, "type": "YELLOW_BLOCK"},
+  {"x": 10, "y": 3, "type": "YELLOW_BLOCK"},
+  {"x": 12, "y": 3, "type": "YELLOW_BLOCK"},
+  {"x": 14, "y": 3, "type": "YELLOW_BLOCK"},
+  {"x": 1, "y": 4, "type": "YELLOW_BLOCK"},
+  {"x": 3, "y": 4, "type": "YELLOW_BLOCK"},
+  {"x": 0, "y": 5, "type": "YELLOW_BLOCK"},
+  {"x": 2, "y": 5, "type": "YELLOW_BLOCK"},
+  {"x": 4, "y": 5, "type": "YELLOW_BLOCK"},
+  {"x": 13, "y": 5, "type": "YELLOW_BLOCK"},
+  {"x": 11, "y": 5, "type": "YELLOW_BLOCK"},
+  {"x": 1, "y": 7, "type": "YELLOW_BLOCK"},
+  {"x": 3, "y": 7, "type": "YELLOW_BLOCK"},
+  {"x": 10, "y": 8, "type": "YELLOW_BLOCK"},
+  {"x": 12, "y": 8, "type": "YELLOW_BLOCK"},
+  {"x": 14, "y": 8, "type": "YELLOW_BLOCK"},
+  {"x": 0, "y": 9, "type": "YELLOW_BLOCK"},
+  {"x": 2, "y": 9, "type": "YELLOW_BLOCK"},
+  {"x": 4, "y": 9, "type": "YELLOW_BLOCK"},
+  {"x": 11, "y": 10, "type": "YELLOW_BLOCK"},
+  {"x": 13, "y": 10, "type": "YELLOW_BLOCK"},
+  {"x": 3, "y": 11, "type": "YELLOW_BLOCK"},
+  {"x": 10, "y": 12, "type": "YELLOW_BLOCK"},
+  {"x": 12, "y": 12, "type": "YELLOW_BLOCK"},
+
+
+  {"x": 2, "y": 0, "type": "RED_BLOCK"},
+  {"x": 4, "y": 0, "type": "RED_BLOCK"},
+  {"x": 11, "y": 0, "type": "RED_BLOCK"},
+  {"x": 10, "y": 1, "type": "RED_BLOCK"},
+  {"x": 3, "y": 2, "type": "RED_BLOCK"},
+  {"x": 11, "y": 3, "type": "RED_BLOCK"},
+  {"x": 13, "y": 3, "type": "RED_BLOCK"},
+  {"x": 0, "y": 4, "type": "RED_BLOCK"},
+  {"x": 2, "y": 4, "type": "RED_BLOCK"},
+  {"x": 4, "y": 4, "type": "RED_BLOCK"},
+  {"x": 10, "y": 5, "type": "RED_BLOCK"},
+  {"x": 12, "y": 5, "type": "RED_BLOCK"},
+  {"x": 14, "y": 5, "type": "RED_BLOCK"},
+  {"x": 0, "y": 7, "type": "RED_BLOCK"},
+  {"x": 2, "y": 7, "type": "RED_BLOCK"},
+  {"x": 4, "y": 7, "type": "RED_BLOCK"},
+  {"x": 10, "y": 7, "type": "RED_BLOCK"},
+  {"x": 12, "y": 7, "type": "RED_BLOCK"},
+  {"x": 14, "y": 7, "type": "RED_BLOCK"},
+  {"x": 11, "y": 8, "type": "RED_BLOCK"},
+  {"x": 13, "y": 8, "type": "RED_BLOCK"},
+  {"x": 1, "y": 9, "type": "RED_BLOCK"},
+  {"x": 3, "y": 9, "type": "RED_BLOCK"},
+  {"x": 10, "y": 10, "type": "RED_BLOCK"},
+  {"x": 12, "y": 10, "type": "RED_BLOCK"},
+  {"x": 2, "y": 11, "type": "RED_BLOCK"},
+  {"x": 4, "y": 11, "type": "RED_BLOCK"},
+  {"x": 3, "y": 12, "type": "RED_BLOCK"},
+
+
+
+  {"x": 0, "y": 12, "type": "BLUER_ROOM"},
+  {"x": 2, "y": 12, "type": "BLUER_ROOM"},
+  {"x": 4, "y": 12, "type": "BLUER_ROOM"},
+  {"x": 0, "y": 10, "type": "BLUER_ROOM"},
+  {"x": 2, "y": 10, "type": "BLUER_ROOM"},
+  {"x": 4, "y": 10, "type": "BLUER_ROOM"},
+  {"x": 0, "y": 8, "type": "BLUER_ROOM"},
+  {"x": 2, "y": 8, "type": "BLUER_ROOM"},
+  {"x": 4, "y": 8, "type": "BLUER_ROOM"},
+  {"x": 11, "y": 7, "type": "BLUER_ROOM"},
+  {"x": 13, "y": 7, "type": "BLUER_ROOM"},
+  {"x": 11, "y": 11, "type": "BLUER_ROOM"},
+  {"x": 13, "y": 11, "type": "BLUER_ROOM"},
+  {"x": 1, "y": 3, "type": "BLUER_ROOM"},
+  {"x": 3, "y": 3, "type": "BLUER_ROOM"},
+  {"x": 7, "y": 5, "type": "BLUER_ROOM"},
+
+
+  {"x": 12, "y": 0, "type": "YELLOW_ROOM"},
+  {"x": 14, "y": 0, "type": "YELLOW_ROOM"},
+  {"x": 10, "y": 0, "type": "YELLOW_ROOM"},
+  {"x": 12, "y": 2, "type": "YELLOW_ROOM"},
+  {"x": 14, "y": 2, "type": "YELLOW_ROOM"},
+  {"x": 10, "y": 2, "type": "YELLOW_ROOM"},
+  {"x": 12, "y": 4, "type": "YELLOW_ROOM"},
+  {"x": 14, "y": 4, "type": "YELLOW_ROOM"},
+  {"x": 10, "y": 4, "type": "YELLOW_ROOM"},
+  {"x": 1, "y": 1, "type": "YELLOW_ROOM"},
+  {"x": 3, "y": 1, "type": "YELLOW_ROOM"},
+  {"x": 1, "y": 5, "type": "YELLOW_ROOM"},
+  {"x": 3, "y": 5, "type": "YELLOW_ROOM"},
+  {"x": 11, "y": 9, "type": "YELLOW_ROOM"},
+
+
+
+  {"x": 8, "y": 0, "type": "PAPER_BLOCK"},
+  {"x": 2, "y": 1, "type": "PAPER_BLOCK"},
+  {"x": 4, "y": 1, "type": "PAPER_BLOCK"},
+  {"x": 6, "y": 1, "type": "PAPER_BLOCK"},
+  {"x": 7, "y": 2, "type": "PAPER_BLOCK"},
+  {"x": 8, "y": 2, "type": "PAPER_BLOCK"},
+  {"x": 11, "y": 2, "type": "PAPER_BLOCK"},
+  {"x": 13, "y": 2, "type": "PAPER_BLOCK"},
+  {"x": 0, "y": 3, "type": "PAPER_BLOCK"},
+  {"x": 2, "y": 3, "type": "PAPER_BLOCK"},
+  {"x": 4, "y": 3, "type": "PAPER_BLOCK"},
+  {"x": 6, "y": 3, "type": "PAPER_BLOCK"},
+  {"x": 11, "y": 4, "type": "PAPER_BLOCK"},
+  {"x": 13, "y": 4, "type": "PAPER_BLOCK"},
+  {"x": 8, "y": 4, "type": "PAPER_BLOCK"},
+  {"x": 6, "y": 5, "type": "PAPER_BLOCK"},
+  {"x": 7, "y": 5, "type": "PAPER_BLOCK"},
+  {"x": 8, "y": 6, "type": "PAPER_BLOCK"},
+  {"x": 6, "y": 7, "type": "PAPER_BLOCK"},
+  {"x": 1, "y": 8, "type": "PAPER_BLOCK"},
+  {"x": 3, "y": 8, "type": "PAPER_BLOCK"},
+  {"x": 7, "y": 8, "type": "PAPER_BLOCK"},
+  {"x": 8, "y": 8, "type": "PAPER_BLOCK"},
+  {"x": 6, "y": 9, "type": "PAPER_BLOCK"},
+  {"x": 10, "y": 9, "type": "PAPER_BLOCK"},
+  {"x": 12, "y": 9, "type": "PAPER_BLOCK"},
+  {"x": 14, "y": 9, "type": "PAPER_BLOCK"},
+  {"x": 3, "y": 10, "type": "PAPER_BLOCK"},
+  {"x": 8, "y": 10, "type": "PAPER_BLOCK"},
+  {"x": 6, "y": 11, "type": "PAPER_BLOCK"},
+  {"x": 7, "y": 11, "type": "PAPER_BLOCK"},
+  {"x": 10, "y": 11, "type": "PAPER_BLOCK"},
+  {"x": 12, "y": 11, "type": "PAPER_BLOCK"},
+  {"x": 8, "y": 12, "type": "PAPER_BLOCK"},
+
+
+
+  {"x": 5, "y": 1, "type": "TREE"},
+  {"x": 9, "y": 1, "type": "TREE"},
+  {"x": 5, "y": 3, "type": "TREE"},
+  {"x": 9, "y": 3, "type": "TREE"},
+  {"x": 9, "y": 7, "type": "TREE"},
+  {"x": 5, "y": 9, "type": "TREE"},
+  {"x": 9, "y": 9, "type": "TREE"},
+  {"x": 5, "y": 11, "type": "TREE"},
+  {"x": 9, "y": 11, "type": "TREE"},
+  {"x": 0, "y": 6, "type": "TREE"},
+  {"x": 2, "y": 6, "type": "TREE"},
+  {"x": 4, "y": 6, "type": "TREE"},
+  {"x": 10, "y": 6, "type": "TREE"},
+  {"x": 12, "y": 6, "type": "TREE"},
+  {"x": 14, "y": 6, "type": "TREE"},
+
+  {"x": 5, "y": 0, "type": "GRASS"},
+  {"x": 9, "y": 0, "type": "GRASS"},
+  {"x": 5, "y": 2, "type": "GRASS"},
+  {"x": 9, "y": 2, "type": "GRASS"},
+  {"x": 5, "y": 4, "type": "GRASS"},
+  {"x": 9, "y": 4, "type": "GRASS"},
+  {"x": 5, "y": 6, "type": "GRASS"},
+  {"x": 9, "y": 6, "type": "GRASS"},
+  {"x": 5, "y": 8, "type": "GRASS"},
+  {"x": 9, "y": 8, "type": "GRASS"},
+  {"x": 5, "y": 10, "type": "GRASS"},
+  {"x": 9, "y": 10, "type": "GRASS"},
+  {"x": 5, "y": 12, "type": "GRASS"},
+  {"x": 9, "y": 12, "type": "GRASS"},
+
+  {"x": 1, "y": 6, "type": "GRASS"},
+  {"x": 3, "y": 6, "type": "GRASS"},
+  {"x": 5, "y": 6, "type": "GRASS"},
+  {"x": 9, "y": 6, "type": "GRASS"},
+  {"x": 11, "y": 6, "type": "GRASS"},
+  {"x": 13, "y": 6, "type": "GRASS"}
+
+
 ]
